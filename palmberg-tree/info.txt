@@ -1,0 +1,39 @@
+Iframe
+
+<div class="iframe-responsive-container chart" data-height="825px" data-700-height="875px" data-650-height="925px" data-600-height="975px" data-450-height="1025px" data-350-height="1075px"" data-300-height="1225px">
+<iframe frameborder="0" scrolling="no" src="http://files.gazlab.com/content-host/d3charts/palmberg-tree/index.html" width="100%"></iframe>
+</div>
+
+Story
+
+<p>IOWA CITY — They say it takes a village to raise a child. But what about moving a pool table or finding a home for a Labrador retriever?</p>
+<p>Mary Palmberg, 72, of Iowa City, has been building that village for at least 10 years, connecting Eastern Iowans who want to help other people. This social network, linked through an email list of more than 250 people, fulfills community needs, reduces waste and provides an organized way for people to volunteer.</p>
+<p>“It feels good in your heart to know you're helping someone in need,” said Greg Schrock, 72, of Iowa City, one of the members of Palmberg's network.</p>
+<div id="extrapicture5" class="extrapicture_ind left"> </div>
+<p>Palmberg, a no-nonsense grandmother who walks 10 miles every day, served as director of Iowa City's Free Lunch Program from 2006 until she retired last June. There, she coordinated food donations and more than 35 volunteer groups that assist with preparation and serving meals six days a week.</p>
+<p>“I'm a logistics person,” she said.</p>
+<p>Last June, Palmberg got a call around 7:30 a.m. from a truck driver stopped at a Tiffin gas station. He had 180 pounds of chicken wings he had planned to deliver to a food distributor, but as the box was dented the company didn't want the wings.</p>
+<p>“He told me that he lived in the South and that he'd been homeless once himself,” Palmberg said. “He didn't want all those wings to go to waste.”</p>
+<p>Palmberg packed the wings on the back seat of her car and put them in the Free Lunch freezer. On June 26 — one of the last days Palmberg coordinated Free Lunch — Schrock brought his large mobile grill and cooked the wings.</p>
+<p>Palmberg also reaches out to her helpers for a huge variety of projects. For example, Home Ties Child Care Center, which provides care to homeless families in Iowa City, was running short of bibs last fall.</p>
+<p>“We use three bibs per child each day,” Director Jan Koch said. “And when we have 12 infants and toddlers, we use 36 bibs a day. For five days we can go through 150 to 180 bibs.”</p>
+<p>Palmberg contacted Jane Skinner, 81, who leads the Rags to Stitches sewing group at First Presbyterian Church in Iowa City. The group completed 28 bibs for Home Ties, sewing seam bindings for ties onto a terry wash cloth or hand towel.</p>
+<p>The University of Iowa Art Student Ambassadors sewed another 40 bibs, said Emanuella Israel, a 21-year-old UI art student from Chicago.</p>
+<div id="extrapicture2" class="extrapicture_ind left"> </div>
+<p>“Getting involved with this project was something fun that we all did together because we believe it's important to be well-rounded individuals who are aware of issues outside of the classroom and beyond ourselves,” Israel said.</p>
+<p>Palmberg's helpers also have fixed rocking chairs, planted perennials and done laundry for Home Ties.</p>
+<p>Some community needs are a little trickier, however.</p>
+<p>Cathy Holmes, of rural Iowa City, told Palmberg last summer she had a pool table she wanted to donate. The table was elegant, if aged, with a solid wood base and leather drop-pockets.</p>
+<p>Palmberg put out a note to see whether a not-for-profit agency was interested. Hannah Altman, an AmeriCorps VISTA member working at Fairweather Lodge spoke up. The lodge provides housing and support for adults with mental illness.</p>
+<p>“Our training house has people here all day long, and we like to have things for them to do,” Altman said.</p>
+<p>Palmberg set about finding a pool table expert to disassemble and reassemble the table. Coralville's Advanced Billiards recommended Thomas Jensen, 30, of North Liberty. Jensen, working for a reduced rate, removed the rails, pulled the staples from the felt, unscrewed the three 250-pound slabs of slate and took apart the frame so it would fit through the door.</p>
+<p>Schrock brought his 12-foot trailer to haul the table, and Clarence Borck recruited 10 men from Hope House, a Coralville halfway house, to heft the heavy pieces.</p>
+<div id="extrapicture6" class="extrapicture_ind center-no-margin"> </div>
+<p>When they got to the Fairweather Lodge, housed in an Iowa City duplex, Jensen realized the preferred location for the table wasn't going to work. The first floor of the house didn't have enough support for a half-ton table — not to mention people playing pool.</p>
+<p>The crew moved the table into the basement, where it's popular with residents, Altman said.</p>
+<p>As with most of Palmberg's projects, people pitch in as they can.</p>
+<p>Laurene Sybil, 90, of Iowa City, for example, can't do much these days besides embroider and keep up a lively conversation. But her decades-old pickup truck is busy with Palmberg behind the wheel hauling donated furniture and other items to agencies or families in need.</p>
+<p>“My deceased husband would be real glad to see people use that truck,” Sybil said. “It's always got something in it. She (Mary) gets rid of so much stuff.”</p>
+<p>Providing people a way to use their skills in a manageable amount of time is one of Palmberg's goals.</p>
+<p>“I like being able to fill a niche of need,” she said.</p>
+<p>(Graphic by <a href="https://twitter.com/CEssig" target="_blank">Chris Essig</a>)</p>

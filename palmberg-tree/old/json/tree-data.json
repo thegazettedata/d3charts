@@ -1,0 +1,7 @@
+var links = [
+  {source: "Mara", target: "Mary", type: "1"},
+  {source: "Mary", target: "Jane", type: "1"},
+  {source: "Mary", target: "Jan", type: "1"},
+  {source: "Truck driver", target: "Mary", type: "2"},
+  {source: "Mary", target: "Greg", type: "2"},
+];

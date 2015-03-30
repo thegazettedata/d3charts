@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+        <link rel="shortcut icon" href="http://thegazette.com/imgs/gazette-kcrg.png" />
+        
+        <!-- Mobile meta tags-->
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="cleartype" content="on">
+        <link rel="apple-touch-icon" href="http://thegazette.com/imgs/gazette-kcrg.png"/>
+
+    	<title>Tree chart: Mary Palmberg's connections</title>
+		
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<script src="js/lib/jquery-1.11.2.min.js"></script>
+        <script src="js/lib/underscore-min-1.6.js"></script>
+		<script src="js/lib/d3.v3.5.5.min.js"></script>
+        <script src="js/lib/d3.tip.js"></script>
+  	</head>
+  	<body>
+        <h3>It takes a village to meet community needs</h3>
+  		<svg>
+        <svg>
+            <defs>
+                <!-- <marker id="triangle" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+                    <path d="M2,2 L2,11 L10,6 L2,2" style="fill: #000000;" />
+                </marker> -->
+                <pattern id="MaryPalmberg" x="0" y="0" height="64" width="64">
+                    <image x="0" y="0" width="64" height="64" xlink:href="images/cropped/palmberg.jpg"></image>
+                </pattern>
+                <pattern id="EmanuellaIsrael" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/israel.jpg"></image>
+                </pattern>
+                <pattern id="EricRichard" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/richard.jpg"></image>
+                </pattern>
+                <pattern id="HannahAltman" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/altman.jpg"></image>
+                </pattern>
+                <pattern id="JanKoch" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/koch.jpg"></image>
+                </pattern>
+                <pattern id="JaneSkinner" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/skinner.jpg"></image>
+                </pattern>
+                <pattern id="MaraCole" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/cole.jpg"></image>
+                </pattern>
+                <pattern id="GregSchrock" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/schrock.jpg"></image>
+                </pattern>
+                <pattern id="ThomasJensen" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/jensen.jpg"></image>
+                </pattern>
+                <pattern id="Wagenknechts" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/wagenknechts.jpg"></image>
+                </pattern>
+                <pattern id="Truckdriver" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/truck_driver.jpg"></image>
+                </pattern>
+                <pattern id="CathyHolmes" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/holmes.jpg"></image>
+                </pattern>
+                <pattern id="ClarenceBorck" x="0" y="0" height="58" width="58">
+                    <image x="0" y="0" width="58" height="58" xlink:href="images/cropped/borck.jpg"></image>
+                </pattern>
+            </defs>    
+        </svg>
+        <p>Mary Palmberg, of Iowa City, uses an email list of more than 200 people to help fill community needs. This chart shows how the Helpers Email list works. People on the left made a request or donated an item. They connected with Mary, in the middle, who shared the need with her helpers. People on the right responded to Mary’s requests for help. Five stories are shown on the chart and each has a unique color.</p>
+        <p>Roll over a person’s photo for more information on their connection to the Helpers Email list.</p>
+        <h5 id="mobile-note" class="hide-desktop show-650"><strong>NOTE:</strong> If you are on a smartphone, please turn your phone sideways to view the chart better.</h5>
+        <script src="json/tree-data.json"></script>
+        <script src="js/name-boxes.js"></script>
+        <script src="js/tooltips.js"></script>
+        <script src="js/script.js"></script>
+        <!-- Start Google Analytics Javascript -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-30416-68', 'auto');
+            ga('require', 'displayfeatures');
+            // ga('send', 'pageview');
+        </script>
+  	</body>
+</html>

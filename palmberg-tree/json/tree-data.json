@@ -1,0 +1,175 @@
+var tree_data = [
+{
+    "name": "Top level",
+    "parent": "null",
+    "children": [{
+        "name": "Mara Cole",
+        "parent": "Top Level",
+        "age": 39,
+        "town": "Iowa City",
+        "title": "Artist and graphic designer",
+        "role": 'Cole had an expensive snowsuit her daughter, Nora, had outgrown. But the zipper had broken, rendering the snowsuit useless. Cole couldn\'t bring herself to toss the gear, so she sent Mary Palmberg a note in January asking if Mary knew anyone who could replace zippers. "I didn\'t have the time or skills to fix it myself," Cole said.',
+        "connection": 1,
+        "children": [
+            {
+                "name": "Mary Palmberg",
+                "parent": "Mara Cole",
+                "age": 39,
+                "connection": 1,
+                "children": [{
+                    "name": "Jane Skinner",
+                    "parent": "Mary Palmberg",
+                    "age": 81,
+                    "town": "Iowa City",
+                    "title": "Chair of Rags to Stitches sewing group at First Presbyterian Church in Iowa City",
+                    "role": 'She agreed to replace the zipper on Cole\'s snowsuit. Switching zippers can be tricky work, especially on a thick coat, but Skinner was pleased to help out. "It made me so happy to think about some little girl who needed a coat having one," she said.',
+                    "connection": 1,
+                    "children": [{
+                            "name": "Jan Koch",
+                            "parent": "Mary Palmberg",
+                            "age": 63,
+                            "town": "Iowa City",
+                            "title": "Director of Home Ties Child Care Center in Iowa City",
+                            "role": 'Koch was glad to receive the refurbished snowsuit. The center, which provides free short-term child care to homeless families, was preparing for a center sledding trip.',
+                            "connection": 1
+                        }]
+                }]
+            }
+        ]
+    },{
+        "name": "Truck driver",
+        "parent": "Top Level",
+        "age": "N/A",
+        "town": "N/A",
+        "title": "N/A",
+        "role": 'He had 180 pounds of chicken wings he planned to deliver in late May 2014 to a local food distributor. Because the box was dented, the company wouldn\'t accept the product. Mary Palmberg drove to pick up the wings and put them in the freezer at the Iowa City Free Lunch program.',
+        "connection": 2,
+        "children": [{
+            "name": "Mary Palmberg",
+            "parent": "Truck driver",
+            "connection": 2,
+            "children": [{
+                "name": "Greg Schrock",
+                "parent": "Mary Palmberg",
+                "age": 72,
+                "town": "Iowa City",
+                "title": "Retired welder",
+                "role": 'Schrock offered to bring his large mobile grill to Free Lunch June 26. They grilled up 180 pounds of wings and "the people went nuts!," Schrock said.',
+                "connection": 2,
+            }]
+        }]
+    },{
+        "name": "Cathy Holmes",
+        "parent": "Top Level",
+        "age": 63,
+        "town": "Rural Iowa City",
+        "title": "Financial planner",
+        "role": 'Holmes tried in vain to sell a full-size pool table on Craigslist last summer. The 20-year-old table was expensive, with leather pockets and a solid wood base. She knew Mary Palmberg, a client and friend, could find a home for the table.',
+        "connection": 3,
+        "children": [{
+            "name": "Mary Palmberg",
+            "parent": "Cathy Holmes",
+            "connection": 3,
+            "children": [{
+                "name": "Hannah Altman",
+                "parent": "Mary Palmberg",
+                "age": 24,
+                "town": "Iowa City",
+                "title": "AmeriCorps VISTA member",
+                "role": 'Altman responded to Palmberg\'s note about the pool table. She thought it would work well at the Iowa City Shelter House\'s Fairweather Lodge, a recovery program for people with mental illness. "In our training house, we have people here all day long and we like to have things for them to do," Altman said.',
+                "connection": 3,
+                "children": [{
+                        "name": "Thomas Jensen",
+                        "parent": "Mary Palmberg",
+                        "age": 30,
+                        "town": "North Liberty",
+                        "title": "Advanced Billiards employee",
+                        "role": 'Jensen offered to disassemble and reassemble the pool table at a steep discount. "The three piece of slate (under the felt) must be perfectly level," Jensen said. "If it\'s off, your shot will arc." Jensen also vetoed plans to install the table in an upper-level room, saying the half-ton table – and people playing – would likely crash through the floor.',
+                        "connection": 3
+                    },{
+                        "name": "Greg Schrock",
+                        "parent": "Mary Palmberg",
+                        "age": 72,
+                        "town": "Iowa City",
+                        "title": "Retired welder",
+                        "role": 'Schrock brought his 12-foot trailer to haul the pool table',
+                        "connection": 3
+                    },{
+                        "name": "Clarence Borck",
+                        "parent": "Mary Palmberg",
+                        "age": 52,
+                        "town": "N/A",
+                        "title": "Hope House employee",
+                        "role": 'Borck recruited volunteers from Hope House, a halfway house in Coralville, to move the pool table to the Fairweather Lodge. The men moved the heavy parts into the basement of the Lodge’s training house in October.',
+                        "connection": 3
+                    }]
+            }]
+        }]
+    },{
+        "name": "Eric Richard",
+        "parent": "Top Level",
+        "age": 46,
+        "town": "Minneapolis, MN",
+        "title": "Attorney",
+        "role": 'Richard struggled to find someone to adopt his 9-year-old golden Labrador retriever, Simon. A recent move to the city and a new job meant Richard couldn\'t give Simon the attention he needed. "Trying to start a law office up here and be a responsible pet owner at the same time didn\'t work," he said.',
+        "connection": 4,
+        "children": [{
+            "name": "Mary Palmberg",
+            "parent": "Eric Richard",
+            "connection": 4,
+            "children": [{
+                "name": "Mara Cole",
+                "parent": "Mary Palmberg",
+                "age": 39,
+                "town": "Iowa City",
+                "title": "Graphic designer",
+                "role": 'Cole, whose husband went to law school with Richard saw Richard\'s post on Facebook about trying to find a home for Simon. Cole posted her own message and then connected with Palmberg Jan. 8 about finding Simon a home in Iowa City.',
+                "connection": 4,
+                "children": [{
+                        "name": "Wagenknechts",
+                        "parent": "Mary Palmberg",
+                        "age": "N/A",
+                        "town": "Iowa City",
+                        "title": "N/A",
+                        "role": 'The Wagenknechts adopted Simon Jan 10. "We have always had three dogs, so when I saw him I thought he would fit in great with our 6-year-old Lab, Molly, and 10-year-old Brittney, A.J.," Maggie Wagenknecht said. Daughters, Kara, 13, and Maya, 12, were pretty excited too. The family (dogs included) recently went on a Spring Break trip to Colorado.',
+                        "connection": 4
+                    }]
+            }]
+        }]
+    },{
+        "name": "Jan Koch",
+        "parent": "Top Level",
+        "age": 63,
+        "town": "Iowa City",
+        "title": "Director of Home Ties Child Care Center in Iowa City",
+        "role": 'Koch noticed in Fall 2014 the center was running out of bibs for the infants and toddlers. "Some of our bibs were worn out or had lost their ties, so we thought if we got 20 or 30 more bibs, we would be able to make it through a week," Koch said. She sent a note to Mary Palmberg.',
+        "connection": 5,
+        "children": [{
+            "name": "Mary Palmberg",
+            "parent": "Eric Richard",
+            "age": 72,
+            "town": "Iowa City",
+            "title": "Former Free Lunch director",
+            "role": 'Mary is at the center of it all. She hosts the Helpers Email list, which connects volunteers with community needs. The people on the left contacted Mary for assistance; the people on right told Mary they could help.',
+            "connection": 5,
+            "children": [{
+                "name": "Jane Skinner",
+                "parent": "Mary Palmberg",
+                "age": 81,
+                "town": "Iowa City",
+                "title": "Chair of Rags to Stitches sewing group at First Presbyterian Church in Iowa City",
+                "role": 'Rags to Stitches sewed 28 bibs in September. They followed Koch\'s pattern by sewing seam binding for ties onto a terry wash cloth or hand towel.',
+                "connection": 5
+            },{
+                "name": "Emanuella Israel",
+                "parent": "Mary Palmberg",
+                "age": 21,
+                "town": "Iowa City",
+                "title": "University of Iowa student and UI Art Student Ambassador",
+                "role": 'The UI Art Student Ambassador program decided to sew bibs as a group. "We believe it\'s important to be well-rounded individuals who are aware of issues outside the classroom and beyond ourselves," Israel said. They sewed about 100 bibs by the end of December.',
+                "connection": 5
+            }]
+        }]
+    }]
+}
+];
