@@ -82,7 +82,8 @@ function createChart() {
     	// Set location of nodes
     	.attr("transform", function(d) {
     		if ( d['name'] === 'Mary Palmberg' && d['depth'] === 2) {
-    			return "translate(" + circle_mary_location + "," + circle_mary_translate + ")";
+    			console.log(d);
+          return "translate(" + circle_mary_location + "," + circle_mary_translate + ")";
         } else {
 
           

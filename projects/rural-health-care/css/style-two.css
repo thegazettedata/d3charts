@@ -1,0 +1,54 @@
+#chart-one-container {
+	display: none;
+}
+
+#chart-two-container p {
+  text-align: right;
+  margin: 0 5px 0 0;
+  font-size: 11px;
+  line-height: 14px;
+  color: #777;
+}
+
+.axis-two path, .axis-two line {
+	fill: none;
+	stroke: #ccc;
+}
+
+.axis-two line {
+	shape-rendering: crispEdges;
+	display: block !important;
+  	stroke-dasharray: 1 1;
+  	stroke-opacity: 0.5;
+}
+
+.x-axis-two path, .y-axis-two path {
+  display: none;
+}
+
+.line {
+	fill: none;
+	stroke: #006d2c;
+	stroke-width: 1px;
+}
+
+.area {
+	fill: rgb(186, 228, 179);
+	opacity: 0.2;
+}
+
+circle {
+	cursor: pointer;
+	fill: #FFF;
+	stroke: #006d2c;
+}
+
+circle:hover {
+	stroke: #777;
+	stroke-width: 3px;
+}
+
+.rect-explainer {
+  border: 1px solid #ccc;
+  background: #FFF;
+}
