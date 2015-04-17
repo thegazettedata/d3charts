@@ -1,4 +1,4 @@
-#chart-one-container {
+#chart-one-container, #chart-two-container {
 	display: none;
 }
 

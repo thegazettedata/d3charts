@@ -1,3 +1,7 @@
+p {
+  margin: 0 0 5px;
+}
+
 h5 {
 	margin: 5px 0 0 0;
 	float: left;
@@ -13,6 +17,9 @@ h5 {
 .median-age-table {
 	border-spacing: 2px;
 	border-collapse: separate;
+	margin-bottom: 7px;
+	margin-left: 5%;
+	margin-top: 7px;
 }
 
 .median-age-table tr td {
@@ -21,7 +28,7 @@ h5 {
 
 .header {
 	padding-right: 10px;
-	max-width: 100px;
+	max-width: 150px;
 	text-align: left !important;
 }
 
@@ -36,6 +43,10 @@ h5 {
 
 .urban-header {
 	background-color: #bae4b3;
+}
+
+.number {
+	margin-right: 10px
 }
 
 /* Charts */
@@ -86,4 +97,31 @@ div.tooltip {
 	padding: 5px 10px;
 	opacity: 1 !important;
 	box-shadow: 0px 1px 3px #ccc;
+}
+
+@media(max-width: 400px) {
+	.median-age-table, .median-age-table tbody, .median-age-table tr, .median-age-table td {
+		display: block;
+		margin: 0px;
+		margin-left: 5%;
+		width: 90%;
+		max-width: 400px;
+		padding: 0px;
+	}
+
+	.header, .number {
+		line-height: 30px;
+		text-align: center !important;
+	}
+
+	.number {
+		margin: 0 !important;
+	}
+}
+
+@media(max-width: 300px) {
+	.median-age-table, .median-age-table tbody, .median-age-table tr, .median-age-table td {
+		width: 98%;
+		margin-left: 1%
+	}
 }
