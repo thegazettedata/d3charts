@@ -1,0 +1,19 @@
+{
+    "name": "gazette-kcrg-d3chart-tasks",
+    "description": "Grunt tasks for D3 chart projects from The Gazette/KCRG data team",
+    "author": {
+        "name": "Chris Essig",
+        "url": "https://github.com/csessig86"
+    },
+    "repository": "GazetteKCRGdata/d3charts",
+    "private": false,
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "matchdep": "~0.1.2",
+        "grunt-contrib-copy": "^0.5.0",
+        "grunt-contrib-clean": "^0.6.0"
+    },
+    "engines": {
+        "node": ">=0.8.0"
+    }
+}
