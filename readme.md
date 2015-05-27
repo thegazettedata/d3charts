@@ -55,7 +55,7 @@ More inforomation can be found [here](https://github.com/gruntjs/grunt-contrib-c
 ##Deploy to FTP server
 When you are done with your chart, you can deploy it to our FTP server with one command.
 
-	grunt deploy --project=name_of_project_here
+	grunt deploy --folder=name_of_project_here
 
 ##Push to Github
 Here's some basic Github commands that you'll need to run to push your projects to Github. First, pull down all changes that have been made to the directory by other people onto your local machine:

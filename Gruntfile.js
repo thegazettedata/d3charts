@@ -39,6 +39,18 @@ module.exports = function (grunt) {
             project: {
                 src: ['projects/' + folder + '/**']
             }
+        },
+        // Deploy to FTP server
+        'sftp-deploy': {
+            build: {
+                auth: {
+                    host: 'ftp2.ftptoyoursite.com',
+                    authKey: 'smgKey'
+                },
+                src: 'projects/' + folder,
+                dest: '/d3charts/projects/' + folder,
+                serverSep: '/'
+            }
         }
 	});
 
@@ -58,5 +70,8 @@ module.exports = function (grunt) {
         'clean:project'
     ]);
 
-
+    // Deploy a project to FTP server
+    grunt.registerTask('deploy', [
+        'sftp-deploy'
+    ]);
 };
