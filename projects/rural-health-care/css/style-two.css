@@ -10,19 +10,19 @@
   color: #777;
 }
 
-.axis-two path, .axis-two line {
+.axis-line path, .axis-line line {
 	fill: none;
 	stroke: #ccc;
 }
 
-.axis-two line {
+.axis-line line {
 	shape-rendering: crispEdges;
 	display: block !important;
   	stroke-dasharray: 1 1;
   	stroke-opacity: 0.5;
 }
 
-.x-axis-two path, .y-axis-two path {
+.x-axis-line path, .y-axis-line path {
   display: none;
 }
 
@@ -32,18 +32,18 @@
 	stroke-width: 1px;
 }
 
-.area {
+.area-line {
 	fill: rgb(186, 228, 179);
 	opacity: 0.2;
 }
 
-circle {
+.circle-line {
 	cursor: pointer;
 	fill: #FFF;
 	stroke: #006d2c;
 }
 
-circle:hover {
+.circle-line:hover {
 	stroke: #777;
 	stroke-width: 3px;
 }

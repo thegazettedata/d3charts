@@ -1,3 +1,12 @@
+// Clone arrays
+Array.prototype.clone = function() {
+    return this.slice(0);
+};
+
+// D3 stuff
+var parseDate = d3.time.format("%d-%b-%y").parse;
+var parseYear = d3.time.format("%Y").parse;
+
 // FUNCTIONS
 // Used to capitalize first letter of string
 function capitaliseFirstLetter(string) {
@@ -101,6 +110,7 @@ function chartWidthSet(chart, chart_width, num_charts) {
         }
     }
 }
+
 
 // Double check to see that the content inside iframe is the same height as window
 $(window).ready(function() {

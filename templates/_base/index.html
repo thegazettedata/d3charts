@@ -36,9 +36,9 @@
 	</head>
 	<body>
 		<div id="content">
-			<div id="chart-one-container">
+			<div id="chart-one-container" class="chart-container">
 				<!-- <p>Chart headline goes here</p> -->
-				<div id="svg-one-container">
+				<div id="svg-one-container" class="svg-container">
 					<div id="tooltip-one" class="tooltip">Tipsy!</div>
 				</div>
 			</div>
@@ -72,14 +72,17 @@
 		<!-- JS: Libraries -->
 		<script src="js/lib/jquery-1.11.1.min.js"></script>
 		<script src="js/lib/underscore-1.8.3.min.js"></script>
-		<script src="js/lib/d3.v3.5.5.min.js"></script>
+		<script src="js/lib/backbone-1.2.0.min.js"></script>
+		<script src="js/lib/d3.v3.5.5.js"></script>
 		<script src="js/lib/d3.tip.js"></script>
-		<script src="js/lib/backbone-1.1.2.min.js"></script>
 		
 		<!-- Base, custom JS -->
 		<script src="js/base.js"></script>
-		<script src="js/view-chart.js"></script>
-		<script src="js/view.js"></script>
+		<script src="js/views/01-view-chart.js"></script>
+		<script src="js/views/02-view-tooltip.js"></script>
+		<script src="js/views/03-view-chart-type.js"></script>
+		<script src="js/views/04-view-render.js"></script>
+		<script src="js/views/view-body.js"></script>
 		<script src="js/script.js"></script>
 
 		<!-- Start Google Analytics Javascript -->

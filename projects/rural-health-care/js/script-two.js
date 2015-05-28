@@ -118,6 +118,7 @@ function setGlobalVariablesTwo() {
 	width = $(window).width();
 	height = 200;
 	padding = [20, 10, 55, 45];
+	
 	// This sets height of the g element, where the chart is actually place
 	// This makes room for 
 	height_g = height - padding[0] -  padding[2];

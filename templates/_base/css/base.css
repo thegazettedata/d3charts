@@ -5,7 +5,8 @@ html, body {
 }
 
 a, .button {
-	transition: all 0.2s ease-out; 
+	transition: all 0.2s ease-out;
+	cursor: pointer;
 }
 
 h5 {
@@ -27,19 +28,19 @@ h5 {
 }
 
 /* Charts */
-#svg-container {
+.svg-container {
 	margin-bottom: 10px;
 }
 
+.chart-container p {
+  text-align: right;
+  margin: 0 5px 0 0;
+  font-size: 11px;
+  line-height: 14px;
+  color: #777;
+}
+
 /*Tooltip */
-rect {
-	cursor: pointer;
-}
-
-rect:hover {
-	fill: #777;	
-}
-
 div.tooltip {
     font-size: 13px;
     visibility:hidden;
