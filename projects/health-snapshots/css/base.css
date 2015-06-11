@@ -18,7 +18,7 @@ h5 {
 }
 
 h4 {
-	margin: 25px 0 0 10px;
+	margin: 15px 0 10px 10px;
 }
 
 .align-left {
@@ -75,13 +75,12 @@ div.tooltip {
 	border-spacing: 4px;
 	float: right;
 	margin: 5px;
-	padding: 3px 6px;
+	padding: 0px 6px;
 	margin: 0 auto;
 }
 
 .key-color {
-	width: 15px;
-	border: 1px solid #555;
+	width: 18px;
 }
 
 .color-one {
@@ -127,7 +126,7 @@ div.tooltip {
 }
 
 
-@media(max-width:650px) {
+@media(max-width:900px) {
 	.toggle-view {
 		width: 90%;
 	}

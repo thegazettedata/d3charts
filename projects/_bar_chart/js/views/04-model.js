@@ -3,9 +3,8 @@ var ChartModel = Backbone.Model.extend({
     // Default values for our view
     defaults: {
     	// Set for the first chart we load
-    	'el': '#chart-one-container',
+    	'el': 'one',
     	'header': 'Rural v. urban Iowa',
-    	'el_chart': '#svg-one-container',
     	// Each column in the data we want to chart
         'columns': ['pop_17_under','pop_18_34','pop_35_54','pop_55_64','pop_65_older'],
     	'csv': 'data/rural_urban.csv',
@@ -30,12 +29,13 @@ var ChartModel = Backbone.Model.extend({
     	// }
 
         // Set headline
-
-        $(this.get('el') + ' h4').html( this.get('header') )
+        var el_container = '#chart-' + this.get('el') + '-container';
+        $(el_container + ' h4').html( this.get('header') )
 
         // Render chart view with custom options
         linechartview = new BarChartView({
-            el: this.get('el_chart'),
+            el: '#svg-' + this.get('el') + '-container',
+            el_num: this.get('el'),
             csv: this.get('csv'),
             chartable_columns: this.get('columns'),
             xscale_domain: this.get('xscale_domain'),

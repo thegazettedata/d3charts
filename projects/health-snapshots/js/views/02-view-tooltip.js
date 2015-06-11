@@ -7,22 +7,20 @@ var TooltipView = ChartView.extend({
 
 		// Need the SVG done before we call the tooltip function
 		shape.on("mouseover", function (d) {
-			var chart = this;
-			var opts = chart.options;
 			var name = d3.select(this.parentNode).datum()['name'];
 
+			// HTML we will use
 			var tooltip_html = 'The rate ';
-
 			if (name !== 'State') {
 				tooltip_html += ' in <strong>' + name + ' County</strong> ';
 			} else {
 				tooltip_html += ' for the <strong>entire state</strong> ';
 			}
-
 			tooltip_html += ' in ' + d['time'].getFullYear() + ' was ';
 			tooltip_html += '<strong>' + d['value'] + '</strong>.';
 
-			$('#tooltip-one').html(tooltip_html); 
+			// Set HTML to tooltip
+			$('#tooltip-' + opts['el_num']).html(tooltip_html); 
 			return tooltip.style("visibility", "visible");
 		})
 		.on("mousemove", function () {
@@ -33,7 +31,7 @@ var TooltipView = ChartView.extend({
 			if (left_right > 2) {
 				var left_position = -16;
 			} else {
-				var left_position = $('.tooltip').width() + 32;
+				var left_position = $('#tooltip-' + opts['el_num']).width() + 32;
 			}
 
 	    	return tooltip

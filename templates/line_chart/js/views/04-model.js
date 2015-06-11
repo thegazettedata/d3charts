@@ -3,9 +3,8 @@ var ChartModel = Backbone.Model.extend({
     // Default values for our view
     defaults: {
     	// Set for the first chart we load
-    	'el': '#chart-one-container',
+    	'el_num': 'one',
     	'header': 'Diabetes hospitalization rate (age-adjusted 100,000)',
-    	'el_chart': '#svg-one-container',
     	'columns': ['year'],
     	'values': ['Johnson', 'Linn', 'State'],
     	'csv': 'data/diabetes-hospitalizations.csv',
@@ -30,12 +29,13 @@ var ChartModel = Backbone.Model.extend({
     	}
 
         // Set headline
-
-        $(this.get('el') + ' h4').html( this.get('header') )
+        var el_container = '#chart-' + this.get('el_num') + '-container';
+        $(el_container + ' h4').html( this.get('header') )
 
         // Render chart view with custom options
         linechartview = new LineChartView({
-            el: this.get('el_chart'),
+            el: '#svg-' + this.get('el_num') + '-container',
+            el_num: this.get('el_num'),
             csv: this.get('csv'),
             chartable_columns: this.get('columns'),
             chartable_values: this.get('values'),
