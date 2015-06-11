@@ -7,12 +7,13 @@ var LineChartView = TooltipView.extend({
 		var data = chart.data;
 
 		data.forEach(function(d) {
-    		d['year'] = parseDate( d['year'] );
-    		d['medicaid_percent'] = +d['medicaid_percent'];
+			// Pull year out of chartable column
+			// Which is declared in the render file
+    		d[ opts.chartable_columns[0] ] = parseYear( d[ opts.chartable_columns[0] ] );
   		});
 
 		opts.xScale.domain(d3.extent(data, function(d) {
-			return d['year'];
+			return d[opts.chartable_columns];
 		}));
 
 	  	// The area under the line
@@ -25,17 +26,6 @@ var LineChartView = TooltipView.extend({
 		var focus = svg.append("g")
 			.style("display", "none");
 
-	  	svg.append("path")
-	      .datum(data)
-	      .attr("class", "area")
-	      .attr("d", opts.area);
-
-      	// The line
-      	svg.append("path")
-			.datum(data)
-			.attr("class", "line")
-			.attr("d", opts.line);
-
 		// X-axis
 		svg.append("g")
 			.attr("class", "x-axis-two axis-two")
@@ -47,20 +37,75 @@ var LineChartView = TooltipView.extend({
 			.attr("class", "y-axis-two axis-two")
 			.call(opts.yAxis)
 
-		// Draw the dots on the line chart
-		var circles = svg.selectAll("circle")
-			.data(data)											
-			.enter()
-			.append("circle")								
-				.attr("r", 3)
-				.attr("cx", function(d) {
-					return opts.xScale( d['year'] );
-				})
-				.attr("cy", function(d) {
-					return opts.yScale( d['medicaid_percent'] );
-				})
+		// Constructs a new ordinal scale with a range of ten categorical colors
+		// https://github.com/mbostock/d3/wiki/Ordinal-Scales#category10
+		var color = d3.scale.category10();
+		
+		color.domain(d3.keys(data[0]).filter(function(key) {
+			// console.log(key);
+			return key !== opts.chartable_columns[0];
+		}));
 
-		chart.tooltipEvents(circles, num);
+		// Keep track of every line we noted
+		// So we can draw it later
+		var line = d3.svg.line()
+		    .interpolate("basis")
+		    .x(function(d) {
+		    	return opts.xScale( d['time'] );
+		    })
+		    .y(function(d) {
+		    	return opts.yScale( d['value'] );
+		    });
+
+    	// Format the data correctly so it will work with the line chart
+    	var dataset = color.domain().map(function(name) {
+		    return {
+		      name: name,
+		      values: data.map(function(d) {
+		      	var key_one = opts.chartable_columns[0];
+		        return {'time': d[key_one], 'value': +d[name]};
+		      })
+		    };
+		});
+
+		// Create a group, which we will add lines and circles to
+		var path = svg.selectAll(".group")
+      		.data(dataset)
+    		.enter()
+    		.append("g")
+      		.attr("class", "group");
+      	
+      	path.append("path")
+			.attr("class", "line")
+			.attr("d", function(d) {
+				return line( d['values'] );
+			})
+			.style("stroke", function(d) {
+				return color( d['name'] );
+			});
+		
+		// The circles on the line
+		var circle = path.append('g')
+			.selectAll('.circle')
+			.data(function(d){
+				return d['values']
+			})
+			.enter()
+			.append('circle')
+			.attr('class','circle')
+			.attr("r", 5)
+			.attr("cx", function(d) {
+				return opts.xScale( d['time'] );
+			})
+			.attr("cy", function(d) {
+				return opts.yScale( d['value'] );
+			})
+			.style("stroke", function(d) {
+				var name = d3.select(this.parentNode).datum()['name'];
+				return color(name);
+			});
+
+		chart.tooltipEvents(circle, num);
 
 		// Stop spinner
 		spinner.stop()
@@ -101,10 +146,10 @@ var LineChartView = TooltipView.extend({
 		opts.width_g = opts.width - opts.padding[1] - opts.padding[3];
 
 		opts.xScale = d3.time.scale()
-	    	.range([ 0, opts.width_g ]);
+	    	.range([ 20, opts.width_g ]);
 
 	    opts.yScale = d3.scale.linear()
-	    	.domain([0, 20])
+	    	.domain(opts.yscale_domain)
 	    	.range([ opts.height_g, 0 ]);
 
 	    opts.xAxis = d3.svg.axis()
@@ -117,26 +162,9 @@ var LineChartView = TooltipView.extend({
 	    	.ticks(5)
 	    	.tickSize(-opts.width_g, 0)
 	    	.tickFormat(function(d) {
-				return d + '%';
+				return d;
 			})
 	    	.orient("left");
-
-		opts.line = d3.svg.line()
-			.x(function(d) {
-				return opts.xScale( d['year'] );
-			})
-			.y(function(d) {
-				return opts.yScale( d['medicaid_percent'] );
-			})
-
-		opts.area = d3.svg.area()
-			.x(function(d) {
-				return opts.xScale( d['year'] );
-			})
-			.y0(opts.height_g)
-			.y1(function(d) {
-				return opts.yScale( d['medicaid_percent'] );
-			});
 
 		// Load data after scales have been set
 		chart.loadD3();

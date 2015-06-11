@@ -9,10 +9,17 @@ a, .button {
 	cursor: pointer;
 }
 
+h4, h5 {
+	float: left;
+}
+
 h5 {
 	margin: 5px 0 0 0;
-	float: left;
 	width: 100%;
+}
+
+h4 {
+	margin: 25px 0 0 10px;
 }
 
 .align-left {
@@ -30,6 +37,7 @@ h5 {
 /* Charts */
 .svg-container {
 	margin-bottom: 10px;
+	width: 70%;
 }
 
 .chart-container p {
@@ -50,4 +58,78 @@ div.tooltip {
 	padding: 5px 10px;
 	opacity: 1 !important;
 	box-shadow: 0px 1px 3px #ccc;
+}
+
+
+#toggle-key {
+	width: 100%;
+}
+
+#toggle-key .toggle-key-td {
+	width: 50%;
+}
+
+/* Key */
+#key {
+	font-size: 12px;
+	border-collapse: separate;
+	border-spacing: 4px;
+	float: right;
+	margin: 5px;
+	padding: 3px 6px;
+	margin: 0 auto;
+}
+
+.key-color {
+	width: 15px;
+	border: 1px solid #555;
+}
+
+.color-one {
+	background-color: rgb(255, 127, 14);
+}
+
+.color-two {
+	background-color: rgb(31, 119, 180);
+}
+
+.color-three {
+	background-color: rgb(44, 160, 44);
+}
+
+/* Toggle buttons */
+.toggle-view {
+	overflow: hidden;
+	width: 45%;
+	margin: 0 auto;
+}
+
+.toggle-view .toggle-view-option {
+	width: 46%;
+	padding: 1%;
+	text-align: center;
+	background-color: #eaf4fb;
+	color: #555;
+	font-weight: bold;
+	border-bottom: 3px solid #777;
+	cursor: pointer;
+}
+
+.toggle-view .selected, .toggle-view .toggle-view-option:hover {
+	background-color: #1f78b4;
+	border-bottom: 3px solid #444;
+	color: #FFF;
+	text-decoration: none;
+}
+
+.toggle-view .toggle-view-option {
+	float: left;
+	margin-right: 1%;
+}
+
+
+@media(max-width:650px) {
+	.toggle-view {
+		width: 90%;
+	}
 }

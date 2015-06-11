@@ -1,4 +1,4 @@
-var project_name = 'D3 template';
+var project_name = 'Health snapshots';
 
 var parseDate = d3.time.format("%d-%b-%y").parse;
 var parseYear = d3.time.format("%Y").parse;

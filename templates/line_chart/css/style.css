@@ -18,7 +18,7 @@
 .line {
 	fill: none;
 	stroke: #006d2c;
-	stroke-width: 1px;
+	stroke-width: 2px;
 }
 
 .area {
@@ -29,12 +29,13 @@
 circle {
 	cursor: pointer;
 	fill: #FFF;
-	stroke: #006d2c;
+	/* 	stroke: #006d2c; */
+	stroke-width: 2px;
 }
 
 circle:hover {
 	stroke: #777;
-	stroke-width: 3px;
+	stroke-width: 6px;
 }
 
 .rect-explainer {

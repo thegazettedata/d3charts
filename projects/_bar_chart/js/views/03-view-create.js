@@ -124,7 +124,7 @@ var BarChartView = TooltipView.extend({
 		opts.xScale = d3.scale.linear()
 			// This is the input
 			// Set to max value we want to see on x-axis
-			.domain([ 0, 30])
+			.domain( opts['xscale_domain'] )
 			// This is what is outputted
 			.range([
 				0, opts.width - opts.padding[1] - opts.padding[3]

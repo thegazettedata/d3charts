@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>D3 bar chart</title>
+		<title>Health snapshots</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 		<link rel="shortcut icon" href="imgs/gazette-kcrg.png" />
@@ -37,11 +37,29 @@
 	<body>
 		<div id="content">
 			<div id="chart-one-container" class="chart-container">
-				<!-- <p>Chart headline goes here</p> -->
+				<div class="toggle-view">
+				    <a id="chart-diabetes-hospitalizations" class="toggle-view-option selected" href="#chart-diabetes-hospitalizations">
+				    	Hospitalizations
+				    </a>
+				    <a id="chart-diabetes-er-visits" class="toggle-view-option" href="#chart-diabetes-er-visits">
+				    	ER visits
+				    </a>
+				</div>
+				<h4></h4>
 				<div id="svg-one-container" class="svg-container">
 					<div id="tooltip-one" class="tooltip">Tipsy!</div>
 				</div>
 			</div>
+			<table id="key" cellspacing="2">
+				<tr>
+					<td class="key-color color-one"></td>
+					<td>Linn County</td>
+					<td class="key-color color-two"></td>
+					<td>Johnson County</td>
+					<td class="key-color color-three"></td>
+					<td>State total</td>
+				</tr>
+			</table>
 		</div>
 
 		<!-- Spin.js -->
@@ -76,15 +94,6 @@
 		<script src="js/lib/d3.v3.5.5.js"></script>
 		<script src="js/lib/d3.tip.js"></script>
 		
-		<!-- Base, custom JS -->
-		<script src="js/base.js"></script>
-		<script src="js/views/01-view-chart.js"></script>
-		<script src="js/views/02-view-tooltip.js"></script>
-		<script src="js/views/03-view-chart-type.js"></script>
-		<script src="js/views/04-view-render.js"></script>
-		<script src="js/views/view-body.js"></script>
-		<script src="js/script.js"></script>
-
 		<!-- Start Google Analytics Javascript -->
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -95,5 +104,14 @@
 			ga('require', 'displayfeatures');
 			// ga('send', 'pageview');
 		</script>
+		
+		<!-- Base, custom JS -->
+		<script src="js/base.js"></script>
+		<script src="js/views/01-view-chart.js"></script>
+		<script src="js/views/02-view-tooltip.js"></script>
+		<script src="js/views/03-view-create.js"></script>
+		<script src="js/views/04-model.js"></script>
+		<script src="js/views/05-view-router-body.js"></script>
+		<script src="js/script.js"></script>
 	</body>
 </html>
