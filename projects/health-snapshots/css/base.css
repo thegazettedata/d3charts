@@ -133,5 +133,9 @@ div.tooltip {
 	div.tooltip {
 		width: 50%;
 	}
+
+	#svg-five-container .x-axis .tick:nth-child(even) text {
+		display: none;
+	}
 }
 

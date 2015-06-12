@@ -62,7 +62,7 @@ var ChartModel = Backbone.Model.extend({
 	    		this.set('el', 'five');
 	    		this.set('tooltip_columns', ['Suicides','Population']);
 	    		this.set('values', ['State']);
-	    		this.set('yscale_domain',[5,15]);
+	    		this.set('yscale_domain',[7,15]);
 	    		$('#key').hide();
 	    	}
     	}

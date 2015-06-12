@@ -29,13 +29,13 @@ var LineChartView = TooltipView.extend({
 
 		// X-axis
 		svg.append("g")
-			.attr("class", "x-axis-two axis-two")
+			.attr("class", "x-axis axis")
 			.attr("transform", "translate(0," + opts.height_g + ")")
 			.call(opts.xAxis);
 
 		// Y-axis
 		svg.append("g")
-			.attr("class", "y-axis-two axis-two")
+			.attr("class", "y-axis axis")
 			.call(opts.yAxis)
 
 		// Constructs a new ordinal scale with a range of ten categorical colors
