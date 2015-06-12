@@ -6,6 +6,7 @@ var ChartModel = Backbone.Model.extend({
     	'el_num': 'one',
     	'header': 'Rural v. urban Iowa',
     	// Each column in the data we want to chart
+    	// This will be plotted as separate charts
         'columns': ['pop_17_under','pop_18_34','pop_35_54','pop_55_64','pop_65_older'],
     	'csv': 'data/rural_urban.csv',
     	'xscale_domain': [0, 30],

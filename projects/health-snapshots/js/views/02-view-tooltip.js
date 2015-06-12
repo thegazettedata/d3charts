@@ -9,8 +9,15 @@ var TooltipView = ChartView.extend({
 		shape.on("mouseover", function (d) {
 			var name = d3.select(this.parentNode).datum()['name'];
 
+			var hash = Backbone.history.getFragment();
+			hash_format = hash.replace('chart-','')
+
 			// HTML we will use
-			var tooltip_html = 'The rate ';
+			if (hash_format === 'suicide-rates-extended') {
+				var tooltip_html = 'The suicide rate ';
+			} else {
+				var tooltip_html = 'The rate ';
+			}
 			if (name !== 'State') {
 				tooltip_html += ' in <strong>' + name + ' County</strong> ';
 			} else {
@@ -19,6 +26,9 @@ var TooltipView = ChartView.extend({
 			tooltip_html += ' in ' + d['time'].getFullYear() + ' was ';
 			tooltip_html += '<strong>' + d['value'] + '</strong>.';
 
+			if (hash_format === 'suicide-rates-extended') {
+				tooltip_html += '<br />A total of ' + d['Suicides'] + ' suicides were reported.<br />The population was ' + commaSeparateNumber(d['Population']) + ' that year.';
+			}
 			// Set HTML to tooltip
 			$('#tooltip-' + opts['el_num']).html(tooltip_html); 
 			return tooltip.style("visibility", "visible");

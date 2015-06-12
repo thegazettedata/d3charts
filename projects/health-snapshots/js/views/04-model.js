@@ -6,6 +6,7 @@ var ChartModel = Backbone.Model.extend({
     	'header': 'Diabetes hospitalization rate (age-adjusted 100,000)',
     	'el_chart': '#svg-one-container',
     	'columns': ['year'],
+    	'tooltip_columns': [],
     	'values': ['Johnson', 'Linn', 'State'],
     	'csv': 'data/diabetes-hospitalizations.csv',
     	'yscale_domain': [70,180],
@@ -55,6 +56,14 @@ var ChartModel = Backbone.Model.extend({
 	    		} else if (hash_format === 'birth-teen-rates') {
 	    			this.set('header', 'Teen birthrate - ages 15-19 (per 1,000)');
 	    		}
+	    	
+	    	// Charts: Birth
+	    	} else if (hash_format === 'suicide-rates-extended') {
+	    		this.set('el', 'five');
+	    		this.set('tooltip_columns', ['Suicides','Population']);
+	    		this.set('values', ['State']);
+	    		this.set('yscale_domain',[5,15]);
+	    		$('#key').hide();
 	    	}
     	}
 
@@ -72,6 +81,7 @@ var ChartModel = Backbone.Model.extend({
             el_num: this.get('el'),
             csv: this.get('csv'),
             chartable_columns: this.get('columns'),
+            tooltip_columns: this.get('tooltip_columns'),
             chartable_values: this.get('values'),
             yscale_domain: this.get('yscale_domain'),
             padding: this.get('padding'),

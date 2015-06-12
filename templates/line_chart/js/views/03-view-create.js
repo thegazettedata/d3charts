@@ -42,14 +42,18 @@ var LineChartView = TooltipView.extend({
 		var color = d3.scale.category10();
 		
 		color.domain(d3.keys(data[0]).filter(function(key) {
-			// console.log(key);
-			return key !== opts.chartable_columns[0];
+			// Only return newly formatted dataset array item
+			// If it's listed in the chartable_values variable
+			// Which is set on chart view initialization
+			if ($.inArray(key, opts.chartable_values) > -1) {
+				return key !== opts.chartable_columns[0];
+			}
 		}));
 
 		// Keep track of every line we noted
 		// So we can draw it later
 		var line = d3.svg.line()
-		    .interpolate("basis")
+		    // .interpolate("basis")
 		    .x(function(d) {
 		    	return opts.xScale( d['time'] );
 		    })
@@ -59,13 +63,19 @@ var LineChartView = TooltipView.extend({
 
     	// Format the data correctly so it will work with the line chart
     	var dataset = color.domain().map(function(name) {
-		    return {
-		      name: name,
-		      values: data.map(function(d) {
-		      	var key_one = opts.chartable_columns[0];
-		        return {'time': d[key_one], 'value': +d[name]};
-		      })
-		    };
+			return {
+			  name: name,
+			  values: data.map(function(d) {
+			  	var key_one = opts.chartable_columns[0];
+			  	var array = {'time': d[key_one], 'value': +d[name]};
+
+			  	// Make sure any columns just for the tooltip is added to the data
+			  	_.each(opts.tooltip_columns, function(val, num) {
+			  		array[val] = d[val];
+			  	});
+			    return array;
+			  })
+			};
 		});
 
 		// Create a group, which we will add lines and circles to
