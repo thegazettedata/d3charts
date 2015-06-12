@@ -8,13 +8,20 @@ var AppView = Backbone.View.extend({
 
     // Hide, show different charts
     toggleView: function(e) {
+        // Prevent anchor tag behavior
+        e.preventDefault()
         var target = e.target;
+
+        // Call correct route to load chart
+        var href = $(target).attr('href');
+        Backbone.history.navigate(href, {trigger: true});
+
+        // Change styles of toggle buttons
+        $(target).addClass('selected');
+        $(target).siblings().removeClass('selected');
 
         // Google Analytics
         ga('send', 'event', project_name, 'Toggle view');
-
-        $(target).addClass('selected');
-        $(target).siblings().removeClass('selected');
     },
 
     initialize: function() {

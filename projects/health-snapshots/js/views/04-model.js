@@ -51,9 +51,9 @@ var ChartModel = Backbone.Model.extend({
 	    		this.set('yscale_domain',[5,35]);
 
 	    		if (hash_format === 'birth-rates') {
-	    			this.set('header', 'Birth rate (per 1,000)');
+	    			this.set('header', 'Birthrate (per 1,000)');
 	    		} else if (hash_format === 'birth-teen-rates') {
-	    			this.set('header', 'Teen birth rate - ages 15-19 (per 1,000)');
+	    			this.set('header', 'Teen birthrate - ages 15-19 (per 1,000)');
 	    		}
 	    	}
     	}

@@ -10,6 +10,9 @@ module.exports = function (grunt) {
     // Name of project folder
     var folder = grunt.option('folder');
 
+    // Output final URL on command line
+    grunt.log.write('URL: http://files.gazlab.com/content-host/d3charts/projects/' + folder + '/index.html' );
+
     // Initialize grunt
     grunt.initConfig({
     	// Copy files

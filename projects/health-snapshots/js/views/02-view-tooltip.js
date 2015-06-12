@@ -34,9 +34,14 @@ var TooltipView = ChartView.extend({
 				var left_position = $('#tooltip-' + opts['el_num']).width() + 32;
 			}
 
+			if (d3.event.pageX - left_position < 0) {
+				var left = 0;
+			} else {
+				var left = d3.event.pageX - left_position;
+			}
 	    	return tooltip
 				.style("top", (d3.event.pageY + 16) + "px")
-				.style("left", (d3.event.pageX - left_position) + "px");
+				.style("left", (left) + "px");
 		})
 		.on("mouseout", function () {
 			return tooltip.style("visibility", "hidden");

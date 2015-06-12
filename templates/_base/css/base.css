@@ -36,7 +36,7 @@ h4 {
 /* Charts */
 .svg-container {
 	margin-bottom: 10px;
-	width: 70%;
+	width: 100%;
 }
 
 .chart-container p {
@@ -102,7 +102,9 @@ div.tooltip {
 }
 
 .toggle-view .toggle-view-option {
+	float: left;
 	width: 46%;
+	margin-right: 1%;
 	padding: 1%;
 	text-align: center;
 	background-color: #eaf4fb;
@@ -119,13 +121,12 @@ div.tooltip {
 	text-decoration: none;
 }
 
-.toggle-view .toggle-view-option {
-	float: left;
-	margin-right: 1%;
-}
-
 
 @media(max-width:650px) {
+	div.tooltip {
+		width: 50%;
+	}
+
 	.toggle-view {
 		width: 90%;
 	}

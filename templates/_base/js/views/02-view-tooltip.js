@@ -26,9 +26,25 @@ var TooltipView = ChartView.extend({
 				var left_position = $('#tooltip-' + opts['el_num']).width() + 32;
 			}
 
+			// Put tooltip on left or right
+			// Depending on where the mouse interaction is
+			if (left_right > 2) {
+				var left_position = -16;
+			} else {
+				var left_position = $('#tooltip-' + opts['el_num']).width() + 32;
+			}
+
+			// Make sure the tooltip doesn't appear off screen
+			if (d3.event.pageX - left_position < 0) {
+				var left = 0;
+			} else {
+				var left = d3.event.pageX - left_position;
+			}
+
+			// Style tooltip
 	    	return tooltip
 				.style("top", (d3.event.pageY + 16) + "px")
-				.style("left", (d3.event.pageX - left_position) + "px");
+				.style("left", (left) + "px");
 		})
 		.on("mouseout", function () {
 			return tooltip.style("visibility", "hidden");

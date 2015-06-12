@@ -17,6 +17,7 @@ var LineChartView = TooltipView.extend({
 		}));
 
 	  	// The area under the line
+	  	$('svg').remove();
 	  	var svg = d3.select(chart.el).append("svg")
 	  		.attr("width", opts.width)
 			.attr("height", opts.height)
@@ -93,7 +94,13 @@ var LineChartView = TooltipView.extend({
 			.enter()
 			.append('circle')
 			.attr('class','circle')
-			.attr("r", 5)
+			.attr('r', function() {
+				if ( $(window).width() < 651) {
+					return 7;
+				} else {
+					return 5;
+				}
+			})
 			.attr("cx", function(d) {
 				return opts.xScale( d['time'] );
 			})

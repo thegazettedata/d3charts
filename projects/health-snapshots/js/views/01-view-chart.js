@@ -51,25 +51,6 @@ var ChartView = Backbone.View.extend({
 	// Close load D3
 	},
 
-	// Called on window resize and hash changes
-	resetChart: function(state) {
-		var chart = this;
-		var opts = chart.options;
-
-		// Reset options
-    	opts.width = $(window).width();
-    	opts.height = opts.height_init;
-    	opts.padding = opts.padding_init;
-    			
-		// Remove items on DOM, set options
-		// And redraw charts
-		d3.selectAll("svg").remove();
-    	d3.selectAll("h5").remove();
-		
-		// Set default options and redraw
-		chart.setDefaultOptions();
-	},
-
 	// Window resize
     resize: function() {
     	var chart = this;
@@ -92,8 +73,18 @@ var ChartView = Backbone.View.extend({
 
 		$(window).resize(function() {
     		waitForResize(function(){
-    			// Reset options and redraw chart
-    			chart.resetChart('resize');
+				// Reset options
+		    	opts.width = $(window).width();
+		    	opts.height = opts.height_init;
+		    	opts.padding = opts.padding_init;
+		    			
+				// Remove items on DOM, set options
+				// And redraw charts
+				$('svg').remove();
+				$('h5').remove();
+				
+				// Set default options and redraw
+				chart.setDefaultOptions();
 			}, 500, "resize string");
 		});
     },
