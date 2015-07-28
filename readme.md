@@ -11,13 +11,13 @@ Make sure you have [Homebrew](http://brew.sh/) installed:
 
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-Install node via Homebrew:	
+Install [Node](https://nodejs.org/) via Homebrew:	
 	
 	brew install node
 
 If you are using a Windows machine, download Node [here](https://nodejs.org/download/).
 
-Install npm dependencies:
+Install [npm](https://www.npmjs.com/) dependencies:
 	
 	npm install
 
