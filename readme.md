@@ -7,9 +7,9 @@ These charts are built using [Backbone.js](https://github.com/jashkenas/backbone
 ##Installation
 First you need to make sure a few things are installed on your computer. If you are using a Mac, do the following:
 
-Make sure you have Homebrew installed:
+Make sure you have [Homebrew](http://brew.sh/) installed:
 
-	ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 Install node via Homebrew:	
 	
