@@ -1,0 +1,30 @@
+/* Bar chart */
+.axis-bar path, .axis-bar line {
+	fill: none;
+	stroke: #fff;
+	stroke-dasharray: 1;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+
+.axis-bar text {
+	font-size: 12px;
+	fill: #333;
+}
+
+.x-axis-bar g text {
+	display: none;
+}
+
+#axis-bar-0 g text {
+	display: block;
+}
+
+.y-axis-bar path, .y-axis-bar line {
+	opacity: 0;
+}
+
+
+.rect-bar:hover {
+	fill: #777;
+}

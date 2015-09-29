@@ -41,6 +41,7 @@ The "folder" parameter is equal to the name of the new folder you want to create
 The "template" parameter represents the type of chart you want to create. We have a couple of options now:
 
 * bar
+* horizontal_bar
 * line
 
 More will be added later.
