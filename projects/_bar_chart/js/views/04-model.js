@@ -6,7 +6,11 @@ var ChartModel = Backbone.Model.extend({
     	'el_num': 'one',
     	'header': 'Rural v. urban Iowa',
     	// Each column in the data we want to chart
+    	// This will be plotted as separate charts
         'columns': ['pop_17_under','pop_18_34','pop_35_54','pop_55_64','pop_65_older'],
+        // First column in SS
+        // Used for scale
+        'column_index': 'area',
     	'csv': 'data/rural_urban.csv',
     	'xscale_domain': [0, 30],
     	'padding': [20, 15, 0, 55],
@@ -38,6 +42,7 @@ var ChartModel = Backbone.Model.extend({
             el_num: this.get('el_num'),
             csv: this.get('csv'),
             chartable_columns: this.get('columns'),
+            column_index: this.get('column_index'),
             xscale_domain: this.get('xscale_domain'),
             padding: this.get('padding'),
             height: this.get('height')

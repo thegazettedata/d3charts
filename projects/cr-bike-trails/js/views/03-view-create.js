@@ -13,7 +13,7 @@ var BarChartView = TooltipView.extend({
 
 		// Map letter to individual bar
 		opts.xScale.domain(data.map(function(d) {
-			return d['letter'];
+			return d[ opts.column_index ];
 		} ));
 
 		// Create domain of zero to max value in frequency column
@@ -33,7 +33,7 @@ var BarChartView = TooltipView.extend({
 				return 'rect-bar button'
 			},
 			"x": function(d) {
-				return opts.xScale( d['letter'] );
+				return opts.xScale( d[ opts.column_index ] );
 			},
 			"y": function(d, num) { 
 				return opts.yScale( d[column] );

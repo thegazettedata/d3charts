@@ -7,8 +7,11 @@ var ChartModel = Backbone.Model.extend({
     	'header': 'Test bar',
     	// Each column in the data we want to chart
     	// This will be plotted as separate charts
-        'columns': ['frequency'],
-    	'csv': 'data/letter-frequency.csv',
+        'columns': ['Length'],
+        // First column in SS
+        // Used for scale
+        'column_index': 'City of Cedar Rapids',
+    	'csv': 'data/trails.csv',
     	'padding': [20, 0, 20, 55],
     	'height': 260,
     },
@@ -38,6 +41,7 @@ var ChartModel = Backbone.Model.extend({
             el_num: this.get('el_num'),
             csv: this.get('csv'),
             chartable_columns: this.get('columns'),
+            column_index: this.get('column_index'),
             yscale_domain: this.get('yscale_domain'),
             padding: this.get('padding'),
             height: this.get('height')

@@ -8,6 +8,7 @@ var ChartModel = Backbone.Model.extend({
     	// Each column in the data we want to chart
     	// This will be plotted as separate charts
         'columns': ['frequency'],
+        'column_index': 'letter',
     	'csv': 'data/letter-frequency.csv',
     	'padding': [20, 0, 20, 55],
     	'height': 260,
@@ -38,6 +39,7 @@ var ChartModel = Backbone.Model.extend({
             el_num: this.get('el_num'),
             csv: this.get('csv'),
             chartable_columns: this.get('columns'),
+            column_index: this.get('column_index'),
             yscale_domain: this.get('yscale_domain'),
             padding: this.get('padding'),
             height: this.get('height')

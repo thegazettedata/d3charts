@@ -25,7 +25,7 @@ var BarChartView = TooltipView.extend({
 
 		// Map school name to school value
 		opts.yScale.domain(data.map(function(d) {
-			return d['area'];
+			return d[ opts['column_index'] ];
 		} ));
 
 		// Create rectangles and append to DOM
@@ -37,18 +37,18 @@ var BarChartView = TooltipView.extend({
 		// Set attributes
 		rects.attr({
 			"class": function(d, num) {
-				return 'rect-bar button ' + d['area'];
+				return 'rect-bar button ' + d[ opts['column_index'] ];
 			},
 			"x": opts.padding[3],
 			"y": function(d, num) {
-				return opts.yScale( d['area'] );
+				return opts.yScale( d[ opts['column_index'] ] );
 			},
 			"width": function(d) {
 				return opts.xScale( d[column] );
 			},
 			"height": opts.yScale.rangeBand(),
 			"fill": function(d) {
-				if (d['area'] === 'Rural') {
+				if (d[ opts['column_index'] ] === 'Rural') {
 					return '#006d2c';
 				} else {
 					return '#bae4b3';
