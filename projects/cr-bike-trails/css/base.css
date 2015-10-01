@@ -52,11 +52,17 @@ div.tooltip {
     font-size: 13px;
     visibility:hidden;
     background: rgba(255, 255, 255, 0.9);
-	border: 1px solid #ccc;
-	position: absolute;
-	padding: 5px 10px;
-	opacity: 1 !important;
-	box-shadow: 0px 1px 3px #ccc;
+    border: 1px solid #ccc;
+    position: absolute;
+    padding: 5px 10px;
+    opacity: 1 !important;
+    box-shadow: 0px 1px 3px #ccc;
+    /* display: none; */
+}
+
+div.tooltip table {
+	clear: both;
+	max-width: 300px;
 }
 
 #toggle-key {

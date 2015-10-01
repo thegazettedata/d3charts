@@ -3,21 +3,32 @@ var ChartModel = Backbone.Model.extend({
     // Default values for our view
     defaults: {
     	// Set for the first chart we load
-    	'el_num': 'one',
-    	'header': 'Test bar',
+    	'el': '#svg-one-container',
+        'el_num': 'one',
+    	'header': 'Miles built per year',
     	// Each column in the data we want to chart
     	// This will be plotted as separate charts
-        'columns': ['Length'],
+        'chartable_columns': ['Length'],
         // First column in SS
         // Used for scale
-        'column_index': 'City of Cedar Rapids',
+        'column_index': 'Year Built',
     	'csv': 'data/trails.csv',
-    	'padding': [20, 0, 20, 55],
-    	'height': 260,
+        'xscale_domain': [0, 8],
+    	'padding': [0, 10, 20, 55],
+    	'height': 0,
+        'height-full': 225,
+        'height-650': 175
     },
 
     initialize: function() {
     	var hash = Backbone.history.getFragment();
+
+        // Set different heights for chart at different sizes
+        if ( $(window).width() > 650) {
+            this.set('height',this.defaults['height-full']);
+        } else {
+            this.set('height',this.defaults['height-650']);
+        }
 
     	// Ran if we are toggling charts
     	// if (hash !== '') {
@@ -32,19 +43,11 @@ var ChartModel = Backbone.Model.extend({
     	// }
 
         // Set headline
-        var el_container = '#chart-' + this.get('el_num') + '-container';
-        $(el_container + ' h4').html( this.get('header') )
+        // var el_container = '#chart-' + this.get('el_num') + '-container';
+        // $(el_container + ' h4').html( this.get('header') )
 
         // Render chart view with custom options
-        linechartview = new BarChartView({
-            el: '#svg-' + this.get('el_num') + '-container',
-            el_num: this.get('el_num'),
-            csv: this.get('csv'),
-            chartable_columns: this.get('columns'),
-            column_index: this.get('column_index'),
-            yscale_domain: this.get('yscale_domain'),
-            padding: this.get('padding'),
-            height: this.get('height')
-        }).render();
+        barchartview = new BarChartView(this.attributes)
+        pymChild = new pym.Child({ renderCallback: barchartview.render()  });
     }
 });

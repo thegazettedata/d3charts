@@ -1,9 +1,23 @@
+#content {
+	height: 350px !important;
+}
+
 /* Bar chart */
 .axis-bar path, .axis-bar line {
 	fill: none;
-	stroke: #fff;
-	stroke-dasharray: 1;
-	stroke-width: 1;
+}
+
+.x-axis-bottom-line {
+	fill: none;
+	stroke: #999;
+	stroke-dasharray: 6px 1px;
+	shape-rendering: crispEdges;
+}
+
+.horizontal-grid {
+	stroke: #ccc;
+	stroke-dasharray: 1px 3px;
+	stroke-width: 1px;
 	shape-rendering: crispEdges;
 }
 
@@ -24,7 +38,12 @@
 	opacity: 0;
 }
 
-
 .rect-bar:hover {
-	fill: #777;
+	fill: #999;
+}
+
+@media(max-width: 650px) {
+	#content {
+		height: 305px !important;
+	}
 }

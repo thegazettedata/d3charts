@@ -2,20 +2,39 @@
 var ChartModel = Backbone.Model.extend({
     // Default values for our view
     defaults: {
-    	// Set for the first chart we load
+    	// DIV number on page
     	'el_num': 'one',
+        // Headline for chart
     	'header': 'Diabetes hospitalization rate (age-adjusted 100,000)',
-    	'columns': ['year'],
-    	'values': ['Johnson', 'Linn', 'State'],
-    	'csv': 'data/diabetes-hospitalizations.csv',
-    	'yscale_domain': [70,180],
+    	// Location of data
+        'csv': 'data/diabetes-hospitalizations.csv',
+        // Time value, x axis
+        'chartable_columns': ['year'],
+        // Lines in our line chart will correspond with these columns
+    	'chartable_values': ['Johnson', 'Linn', 'State'],
+        // Columns with data that we only want to use in the tooltip
+        'tooltip_columns': [],
+    	// Y scale domain
+        'yscale_domain': [70,180],
     	'padding': [10, 30, 15, 35],
-    	'height': 250,
+    	'height': 0,
+        'height-full': 250
     },
 
     initialize: function() {
     	var hash = Backbone.history.getFragment();
+        
+        // Set DIV of chart
+        this.set('el', '#svg-' + this.get('el_num') + '-container');
 
+        // Set different heights for chart at different sizes
+        this.set('height',this.defaults['height-full']);
+        // if ( $(window).width() > 650) {
+        //     this.set('height',this.defaults['height-full']);
+        // } else {
+        //     this.set('height',this.defaults['height-650']);
+        // }
+        
     	// Ran if we are toggling charts
     	if (hash !== '') {
     		hash_format = hash.replace('chart-','')
@@ -33,15 +52,7 @@ var ChartModel = Backbone.Model.extend({
         $(el_container + ' h4').html( this.get('header') )
 
         // Render chart view with custom options
-        linechartview = new LineChartView({
-            el: '#svg-' + this.get('el_num') + '-container',
-            el_num: this.get('el_num'),
-            csv: this.get('csv'),
-            chartable_columns: this.get('columns'),
-            chartable_values: this.get('values'),
-            yscale_domain: this.get('yscale_domain'),
-            padding: this.get('padding'),
-            height: this.get('height')
-        }).render();
+        linechartview = new LineChartView(this.attributes);
+        pymChild = new pym.Child({ renderCallback: linechartview.render()  });
     }
 });

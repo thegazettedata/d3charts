@@ -9,8 +9,21 @@ var TooltipView = ChartView.extend({
 		shape.on("mouseover", function (d) {
 			// var name = d3.select(this.parentNode).datum()['name'];
 
-			var tooltip_html = 'Text goes here: ';
-			tooltip_html += d[ opts.chartable_columns[num] ];
+			var tooltip_html = '<h4>' + d['Trail'] + '</h4>'
+			tooltip_html += '<table>';
+			tooltip_html += '<tr>';
+			tooltip_html += '<td><strong>Path:</strong> ' + d['Begin to End'] + '</td>';	
+			tooltip_html += '</tr>';
+			tooltip_html += '<tr>';
+			tooltip_html += '<td><strong>About:</strong> ' + d['Description'] + '</td>';	
+			tooltip_html += '</tr>';
+			tooltip_html += '<tr>';
+			tooltip_html += '<td><strong>Miles:</strong> ' + d[ opts.chartable_columns[num] ] + '</td>';	
+			tooltip_html += '</tr>';
+			tooltip_html += '<tr>';
+			tooltip_html += '<td><strong>Built:</strong> ' + d['Year Built'] + '</td>';	
+			tooltip_html += '</tr>';
+			tooltip_html += '</table>';
 
 			$('#tooltip-' + opts['el_num'] ).html(tooltip_html);
 			return tooltip.style("visibility", "visible");
@@ -43,7 +56,7 @@ var TooltipView = ChartView.extend({
 
 			// Style tooltip
 	    	return tooltip
-				.style("top", (d3.event.pageY + 16) + "px")
+				.style("top", (d3.event.pageY - $('#tooltip-' + opts['el_num']).height() - 16) + "px")
 				.style("left", (left) + "px");
 		})
 		.on("mouseout", function () {

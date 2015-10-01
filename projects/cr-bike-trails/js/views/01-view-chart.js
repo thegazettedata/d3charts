@@ -3,6 +3,8 @@ var project_name = 'Health snapshots';
 var parseDate = d3.time.format("%d-%b-%y").parse;
 var parseYear = d3.time.format("%Y").parse;
 
+var pymChild = null;
+
 // Events for the body
 var ChartView = Backbone.View.extend({
 	// Global variables that will be set once the page loads
@@ -72,10 +74,14 @@ var ChartView = Backbone.View.extend({
 		})();
 
 		$(window).resize(function() {
-    		waitForResize(function(){
+        waitForResize(function(){
 				// Reset options
 		    	opts.width = $(window).width();
-		    	opts.height = opts.height_init;
+					if ( $(window).width() > 650) {
+            opts.height = opts['height-full'];
+        	} else {
+            opts.height = opts['height-650'];
+        	}
 		    	opts.padding = opts.padding_init;
 		    			
 				// Remove items on DOM, set options

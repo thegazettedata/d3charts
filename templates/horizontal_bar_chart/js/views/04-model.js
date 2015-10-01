@@ -4,18 +4,34 @@ var ChartModel = Backbone.Model.extend({
     defaults: {
     	// Set for the first chart we load
     	'el_num': 'one',
-    	'header': 'Test bar',
+    	'header': 'Rural v. urban Iowa',
+        // Location of data
+        'csv': 'data/rural_urban.csv',
     	// Each column in the data we want to chart
     	// This will be plotted as separate charts
-        'columns': ['frequency'],
-        'column_index': 'letter',
-    	'csv': 'data/letter-frequency.csv',
-    	'padding': [20, 0, 20, 55],
-    	'height': 260,
+        'chartable_columns': ['pop_17_under','pop_18_34','pop_35_54','pop_55_64','pop_65_older'],
+        // First column in SS
+        // Used for scale
+        'column_index': 'area',
+    	'xscale_domain': [0, 30],
+    	'padding': [20, 15, 0, 55],
+    	'height': 0,
+        'height-full': 60
     },
 
     initialize: function() {
     	var hash = Backbone.history.getFragment();
+
+        // Set DIV of chart
+        this.set('el', '#svg-' + this.get('el_num') + '-container');
+
+        // Set different heights for chart at different sizes
+        this.set('height',this.defaults['height-full']);
+        // if ( $(window).width() > 650) {
+        //     this.set('height',this.defaults['height-full']);
+        // } else {
+        //     this.set('height',this.defaults['height-650']);
+        // }
 
     	// Ran if we are toggling charts
     	// if (hash !== '') {
@@ -34,15 +50,7 @@ var ChartModel = Backbone.Model.extend({
         $(el_container + ' h4').html( this.get('header') )
 
         // Render chart view with custom options
-        linechartview = new BarChartView({
-            el: '#svg-' + this.get('el_num') + '-container',
-            el_num: this.get('el_num'),
-            csv: this.get('csv'),
-            chartable_columns: this.get('columns'),
-            column_index: this.get('column_index'),
-            yscale_domain: this.get('yscale_domain'),
-            padding: this.get('padding'),
-            height: this.get('height')
-        }).render();
+        barchartview = new BarChartView(this.attributes)
+        pymChild = new pym.Child({ renderCallback: barchartview.render()  });
     }
 });

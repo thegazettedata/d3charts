@@ -1,3 +1,7 @@
+#content {
+	height: 475px !important;
+}
+
 /* Bar chart */
 .axis-bar path, .axis-bar line {
 	fill: none;
@@ -23,7 +27,6 @@
 .y-axis-bar path, .y-axis-bar line {
 	opacity: 0;
 }
-
 
 .rect-bar:hover {
 	fill: #777;

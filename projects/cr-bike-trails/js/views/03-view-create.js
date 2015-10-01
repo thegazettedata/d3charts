@@ -13,13 +13,29 @@ var BarChartView = TooltipView.extend({
 
 		// Map letter to individual bar
 		opts.xScale.domain(data.map(function(d) {
-			return d[ opts.column_index ];
+			return d[ opts['column_index'] ];
 		} ));
 
 		// Create domain of zero to max value in frequency column
 		opts.yScale.domain([0, d3.max(data, function(d) {
 			return d[column];
 		} )])
+
+		// Create horizontal grid
+		chart.svg.selectAll("line.horizonta-grid").data( opts.yScale.ticks(8) )
+			.enter()
+			.append("line")
+			.attr({
+				"class":"horizontal-grid",
+				"x1" : opts.padding[3],
+				"x2" : opts.width,
+				"y1" : function(d){
+					return opts.yScale(d);
+				},
+				"y2" : function(d){
+					return opts.yScale(d);
+				}
+			});
 
 		// Create rectangles and append to DOM
 		var rects = chart.svg.selectAll("rect")
@@ -33,7 +49,7 @@ var BarChartView = TooltipView.extend({
 				return 'rect-bar button'
 			},
 			"x": function(d) {
-				return opts.xScale( d[ opts.column_index ] );
+				return opts.xScale( d[ opts['column_index'] ] );
 			},
 			"y": function(d, num) { 
 				return opts.yScale( d[column] );
@@ -41,6 +57,9 @@ var BarChartView = TooltipView.extend({
 			"width": opts.xScale.rangeBand(),
 			"height": function(d, num) {
 				return opts.height - opts.padding[2] - opts.yScale( d[column] );
+			},
+			"fill": function(d) {
+				return 'lightblue';
 			}
 		})
 
@@ -51,7 +70,14 @@ var BarChartView = TooltipView.extend({
 				"class": "x-axis-bar axis-bar",
 				"transform": "translate(" + 0 + "," + (opts.height - 20) + ")"
 			})
-			.call(opts.xAxis);
+			.call(opts.xAxis)
+			.append("line")
+				.attr({
+					"class": "x-axis-bottom-line",
+					"y2": 0,
+					"x1": opts.padding[3],
+					"x2": opts.width
+				})
 
 
 		// Append y axis
@@ -67,6 +93,11 @@ var BarChartView = TooltipView.extend({
 
 		// Stop spinner
 		spinner.stop()
+		
+		// This is calling an updated height.
+    // if (pymChild) {
+    //     pymChild.sendHeight();
+    // }
 	// Close create charts
 	},
 
@@ -112,8 +143,8 @@ var BarChartView = TooltipView.extend({
 		opts.xScale = d3.scale.ordinal()
 			// This is what is outputted
 			.rangeRoundBands([
-				opts.padding[3], opts.width - opts.padding[1]
-			], 0.1);
+				opts.padding[3] + 10, opts.width - opts.padding[1]
+			], 0);
 
 		// Determines height of bars
 		// Based on data values
@@ -128,7 +159,8 @@ var BarChartView = TooltipView.extend({
 		// Numbers that go left to right
 		opts.xAxis = d3.svg.axis()
 			.scale(opts.xScale)
-			.orient("bottom");
+			.tickValues(d3.range(1975, 2020, 10))
+			.orient("bottom")
 
 		// Names on the left of the chart
 		opts.yAxis = d3.svg.axis()
@@ -137,11 +169,8 @@ var BarChartView = TooltipView.extend({
 			.ticks(5)
 			// Add %
 			.tickFormat(function(d) {
-				return d * 100 + '%';
+				return d + ' miles';
 			})
-			// This makes it so the ticks go down height of the chart
-			// Effectively making a grid
-			.tickSize(-opts.height, 0)
 			.orient("left");
 
 		// Load data after scales have been set

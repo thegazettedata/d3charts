@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Health snapshots</title>
+		<title>Bike trail growth in Cedar Rapids</title>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 		<link rel="shortcut icon" href="imgs/gazette-kcrg.png" />
@@ -39,21 +39,21 @@
 		<div id="content">
 			<div id="charts-containers">
 				<div id="chart-one-container" class="chart-container">
-					<div class="toggle-view">
+					<!-- <div class="toggle-view">
 					    <a id="chart-diabetes-hospitalizations" class="toggle-view-option selected" href="#chart-diabetes-hospitalizations">
 					    	Hospitalizations
 					    </a>
 					    <a id="chart-diabetes-er-visits" class="toggle-view-option" href="#chart-diabetes-er-visits">
 					    	ER visits
 					    </a>
-					</div>
+					</div> -->
 					<h4></h4>
 					<div id="svg-one-container" class="svg-container">
 						<div id="tooltip-one" class="tooltip">Tipsy!</div>
 					</div>
 				</div>
 			</div>
-			<table id="key" cellspacing="2">
+			<!-- <table id="key" cellspacing="2">
 				<tr>
 					<td class="key-color color-one"></td>
 					<td>Linn County</td>
@@ -62,7 +62,7 @@
 					<td class="key-color color-three"></td>
 					<td>State total</td>
 				</tr>
-			</table>
+			</table> -->
 		</div>
 
 		<!-- Spin.js -->
@@ -82,7 +82,7 @@
 			hwaccel: false, // Whether to use hardware acceleration
 			className: 'spinner', // The CSS class to assign to the spinner
 			zIndex: 2e9, // The z-index (defaults to 2000000000)
-			top: '100px', // Top position relative to parent
+			top: '125px', // Top position relative to parent
 			left: '50%' // Left position relative to parent
 		};
 		var target = document.getElementById('content');
@@ -96,9 +96,9 @@
 		<script src="js/lib/backbone-1.2.0.min.js"></script>
 		<script src="js/lib/d3.v3.5.5.js"></script>
 		<script src="js/lib/d3.tip.js"></script>
-		
-		<!-- Start Google Analytics Javascript -->
+		<script src="js/lib/pym.min.js"></script>
 		<script>
+			// Start Google Analytics Javascript
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

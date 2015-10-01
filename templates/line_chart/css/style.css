@@ -1,3 +1,7 @@
+#content {
+	height: 385px !important;
+}
+
 /* Line chart chart */
 .axis path, .axis line {
 	fill: none;
