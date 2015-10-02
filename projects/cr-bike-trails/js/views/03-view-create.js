@@ -58,9 +58,9 @@ var BarChartView = TooltipView.extend({
 			"height": function(d, num) {
 				return opts.height - opts.padding[2] - opts.yScale( d[column] );
 			},
-			"fill": function(d) {
-				return 'lightblue';
-			}
+			"fill": '#9bdaf1',
+			"stroke": "#FFF",
+    	"stroke-width": "1px"
 		})
 
 		// Append x axis
@@ -95,9 +95,9 @@ var BarChartView = TooltipView.extend({
 		spinner.stop()
 		
 		// This is calling an updated height.
-    // if (pymChild) {
-    //     pymChild.sendHeight();
-    // }
+    if (pymChild) {
+        pymChild.sendHeight();
+    }
 	// Close create charts
 	},
 

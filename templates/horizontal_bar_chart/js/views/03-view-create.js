@@ -79,6 +79,11 @@ var BarChartView = TooltipView.extend({
 
 		// Stop spinner
 		spinner.stop()
+
+		// This is calling an updated height.
+    if (pymChild) {
+        pymChild.sendHeight();
+    }
 	// Close create charts
 	},
 

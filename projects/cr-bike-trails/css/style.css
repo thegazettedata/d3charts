@@ -39,7 +39,7 @@
 }
 
 .rect-bar:hover {
-	fill: #999;
+	fill: #046b99;
 }
 
 @media(max-width: 650px) {
