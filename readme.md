@@ -93,7 +93,7 @@ We at The Gazette use [pym.js](https://github.com/nprapps/pym.js/) to iframe the
 
 ```html
 <div class="center">
-<h3 style="margin-bottom: 0px;">Miles of trails built in Cedar Rapids by year</h3>
+<h3>Miles of trails built in Cedar Rapids by year</h3>
 <div id="cr-bike-trails"> </div>
 <script type="text/javascript">// <![CDATA[
 var pymParent = new pym.Parent('cr-bike-trails','http://files.gazlab.com/content-host/d3charts/projects/cr-bike-trails/index.html', {});
