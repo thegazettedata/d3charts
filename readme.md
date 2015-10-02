@@ -94,8 +94,8 @@ We at The Gazette use [pym.js](https://github.com/nprapps/pym.js/) to iframe the
 ```html
 <div class="center">
 <h3>Miles of trails built in Cedar Rapids by year</h3>
-<div id="cr-bike-trails"> </div>
-<script type="text/javascript">$(document).ready({var pymParent = new pym.Parent('cr-bike-trails','http://files.gazlab.com/content-host/d3charts/projects/cr-bike-trails/index.html', {});});</script>
+<div id="cr-bike-trails"></div>
+<script type="text/javascript">var pymParent = new pym.Parent('cr-bike-trails','http://files.gazlab.com/content-host/d3charts/projects/cr-bike-trails/index.html', {});</script>
 <p class="embed-subhead">* This chart shows how many miles of trails have been built in Cedar Rapids for every year since 1975. After going decades without building any trails, the city has built several miles worth of trails every year since 1999.</p>
 </div>
 ```
