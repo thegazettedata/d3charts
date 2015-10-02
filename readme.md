@@ -89,66 +89,15 @@ Before pushing to Github, make sure to add a link to the chart in [urls.md](http
 	
 ##Iframing charts into stories
 
-If you are iFraming the chart on a page, the iFrame.html file within the base folder includes CSS and JS to make the chart responsive.
-
-The iFrame you should use looks like:
+We at The Gazette use [pym.js](https://github.com/nprapps/pym.js/) to iframe the charts into articles and make them responsive. Here's an example of a chart embed:
 
 ```html
-<div id="iframe-responsive-container" data-height="320px" data-600-height="220px">
-	<iframe id="iframe-responsive" src="http://files.gazlab.com/content-host/c3charts/projects/cr-shootings/index.html#chart-homicides" scrolling=no frameborder="0" width="100%"></iframe>
+<div class="center">
+<h3 style="margin-bottom: 0px;">Miles of trails built in Cedar Rapids by year</h3>
+<div id="cr-bike-trails"> </div>
+<script type="text/javascript">// <![CDATA[
+var pymParent = new pym.Parent('cr-bike-trails','http://files.gazlab.com/content-host/d3charts/projects/cr-bike-trails/index.html', {});
+// ]]></script>
+<p class="embed-subhead">* This chart shows how many miles of trails have been built in Cedar Rapids for every year since 1975. After going decades without building any trails, the city has built several miles worth of trails every year since 1999.</p>
 </div>
 ```
-
-The date-height attribute of "iframe-responsive-container" is the default height of the iFramed chart. The "data-600-height" attribute sets the height of the chart to 220px at screen sizes that are 600px wide or lower.
-
-You can add as many "breakpoints" as you want. For instance, if you want the height of the chart to be 400px tall at screen sizes of 700px, you're code would look like so:
-
-```html
-<div id="iframe-responsive-container" data-height="320px" data-700-height="250px">
-	<iframe id="iframe-responsive" src="http://files.gazlab.com/content-host/c3charts/projects/cr-shootings/index.html#chart-homicides" scrolling=no frameborder="0" width="100%"></iframe>
-</div>
-```
-
-You can also use both:
-
-```html
-<div id="iframe-responsive-container" data-height="320px" data-600-height="220px" data-700-height="250px">
-	<iframe id="iframe-responsive" src="http://files.gazlab.com/content-host/c3charts/projects/cr-shootings/index.html#chart-homicides" scrolling=no frameborder="0" width="100%"></iframe>
-</div>
-```
-
-It is important to note that if you are going to use multiple media queries, you put the lowest pixel amounts first within the markup. So for instance, do this:
-
-```html
-<div class="iframe-responsive-container chart" data-height="650px" data-400-height="750px" data-550-height="700px">
-```
-
-And not this:
-```html
-<div class="iframe-responsive-container chart" data-height="650px" data-550-height="700px" data-400-height="750px">
-```
-
-Because our CMS strips out attributes, which are very important, we must [lazy load](https://github.com/emn178/jquery-lazyload-any) the embed like so:
-
-```html
-<div class="lazyload"><!--
-<div id="iframe-responsive-container" data-height="320px" data-700-height="250px" data-600-height="220px">
-	<iframe id="iframe-responsive" src="http://files.gazlab.com/content-host/c3charts/projects/cr-shootings/index.html#chart-homicides" scrolling=no frameborder="0" width="100%"></iframe>
-</div>
---></div>
-```
-
-You can also add a header and about text like so: 
-
-```html
-<div id="chart-homicides-container" class="chart-container">
-	<h3>Homicides: 2004 - 2014</h3>
-	<div class="lazyload"><!--
-		<div class="iframe-responsive-container chart" data-height="250px" data-600-height="200px">
-		<iframe src="http://files.gazlab.com/content-host/c3charts/projects/cr-shootings/index.html#chart-homicides" scrolling=no frameborder="0" width="100%"></iframe>
-		</div>
-	--></div>
-	<p><strong>About:</strong> Shown are the number of victims as a result of homicide.  In 2006, police recorded five incidents with six victims, including a double homicide. This year, policed recorded six incidents with eight victims.</p>
-</div>
-```
-NOTE: You must include "scrolling:no" in the iframe for this solution to work on iPhones. The code that makes these responsive iframes work is found here: [http://thegazette.com/js/article-embeds.js](http://thegazette.com/js/article-embeds.js). Find the "findResponsiveIframes()" for the code.
