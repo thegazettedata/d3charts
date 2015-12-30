@@ -1,9 +1,4 @@
-var project_name = 'Health snapshots';
-
-var parseDate = d3.time.format("%d-%b-%y").parse;
-var parseYear = d3.time.format("%Y").parse;
-
-var pymChild = null;
+var project_name = 'Project name goes here';
 
 // Events for the body
 var ChartView = Backbone.View.extend({
@@ -26,16 +21,16 @@ var ChartView = Backbone.View.extend({
 	},
 
 	events: {
-        // Google Analytics
-        "mouseleave svg": "mouseLeave",
-    },
+		// Google Analytics
+		"mouseleave svg": "mouseLeave",
+	},
 
-    mouseLeave: function() {
-    	ga('send', 'event', project_name, 'Chart touched');
+	mouseLeave: function() {
+		ga('send', 'event', project_name, 'Chart touched');
 	},
 
 	// Load CSV data
-	loadD3: function() {
+	loadD3: function(state) {
 		var chart = this;
 		var opts = chart.options;
 
@@ -46,7 +41,7 @@ var ChartView = Backbone.View.extend({
 			// Loop through every column in the data we want to chart
 			// And eventually place them on the DOM
 			_.each(opts.chartable_columns, function(column, num) {
-				chart.setIterationOptions(column, num);
+				chart.setIterationOptions(column, num, state);
 			});
 		});
 
@@ -54,12 +49,12 @@ var ChartView = Backbone.View.extend({
 	},
 
 	// Window resize
-    resize: function() {
-    	var chart = this;
-    	var opts = chart.options;
+	resize: function() {
+		var chart = this;
+		var opts = chart.options;
 
-    	// Wait to call the resize function
-    	// After resize is completed
+		// Wait to call the resize function
+		// After resize is completed
 		var waitForResize = (function () {
 			var timers = {};
 			return function (callback, ms, uniqueId) {
@@ -74,38 +69,40 @@ var ChartView = Backbone.View.extend({
 		})();
 
 		$(window).resize(function() {
-    		waitForResize(function(){
+    	waitForResize(function(){
 				// Reset options
-		    	opts.width = $(window).width();
-		    	// Used if you want to have chart be a different height
-		    	// At a different screen size
-		    	// if ( $(window).width() > 650) {
-       //      opts.height = opts['height-full'];
-       //  	} else {
-       //      opts.height = opts['height-650'];
-       //  	}
-        	opts.height = opts.height_init;
-		    	opts.padding = opts.padding_init;
-		    			
-				// Remove items on DOM, set options
-				// And redraw charts
-				$('svg').remove();
-				$('h5').remove();
+				opts.width = $(window).width();
 				
-				// Set default options and redraw
-				chart.setDefaultOptions();
+				// Used if you want to have chart be a different height
+		   	// At a different screen size
+		   	// if ( $(window).width() > 650) {
+				//      opts.height = opts['height-full'];
+				//  	} else {
+				//      opts.height = opts['height-650'];
+				//  	}
+
+				opts.height = opts.height_init;
+				opts.padding = opts.padding_init;
+
+				// Set default options and resize
+				chartview.render('refresh');
+				
+			// Close wait for resize
 			}, 500, "resize string");
+		// Close window resize
 		});
-    },
+	// Close resize
+	},
 
 	initialize: function() {
 	},
-    render: function() {
-    	var chart = this;
-    	var opts = chart.options;
 
-    	this.setDefaultOptions();
-    	this.resize();
-    }
+	render: function(state) {
+		var chart = this;
+		var opts = chart.options;
+
+		this.setDefaultOptions(state);
+		this.resize();
+	}
 // Close chartview
 });

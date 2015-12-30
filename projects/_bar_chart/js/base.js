@@ -5,6 +5,7 @@ Array.prototype.clone = function() {
 
 // D3 stuff
 var parseDate = d3.time.format("%d-%b-%y").parse;
+var parseYearMonth = d3.time.format("%Y-%m").parse;
 var parseYear = d3.time.format("%Y").parse;
 
 // FUNCTIONS

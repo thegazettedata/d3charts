@@ -1,7 +1,7 @@
 var LineChartView = TooltipView.extend({
 	// This is called with our global CSV data
 	// It creates a chart and appends to DOM
-	createChart: function(column, num) {
+	createChart: function(column, num, state) {
 		var chart = this;
 		var opts = chart.options;
 		var data = chart.data;
@@ -9,33 +9,48 @@ var LineChartView = TooltipView.extend({
 		data.forEach(function(d) {
 			// Pull year out of chartable column
 			// Which is declared in the render file
-    		d[ opts.chartable_columns[0] ] = parseYear( d[ opts.chartable_columns[0] ] );
-  		});
+			d[ opts.chartable_columns[0] ] = parseYear( d[ opts.chartable_columns[0] ] );
+		});
 
 		opts.xScale.domain(d3.extent(data, function(d) {
 			return d[opts.chartable_columns];
 		}));
 
-	  	// The area under the line
-	  	var svg = d3.select(chart.el).append("svg")
-	  		.attr("width", opts.width)
-			.attr("height", opts.height)
-			.append("g")
-			.attr("transform", "translate(" + opts.padding[3] + "," + opts.padding[0] + ")");
-		
-		var focus = svg.append("g")
-			.style("display", "none");
+		// The area under the line
+		// Create new SVG if we aren't refreshing the chart
+		if (state !== 'refresh') {
+			var svg = d3.select(chart.el).append("svg")
+				.attr("width", opts.width)
+				.attr("height", opts.height)
+				.append("g")
+				.attr("transform", "translate(" + opts.padding[3] + "," + opts.padding[0] + ")");
+			
+			var focus = svg.append("g")
+				.style("display", "none");
 
-		// X-axis
-		svg.append("g")
-			.attr("class", "x-axis axis")
-			.attr("transform", "translate(0," + opts.height_g + ")")
-			.call(opts.xAxis);
+			// X-axis
+			svg.append("g")
+				.attr("class", "x-axis axis")
+				.attr("transform", "translate(0," + opts.height_g + ")")
+				.call(opts.xAxis);
 
-		// Y-axis
-		svg.append("g")
-			.attr("class", "y-axis axis")
-			.call(opts.yAxis)
+			// Y-axis
+			svg.append("g")
+				.attr("class", "y-axis axis")
+				.call(opts.yAxis)
+		// If refresh, we'll just reload the x and y axises with a duration
+		} else {
+			var svg = d3.select(chart.el).select('svg')
+				.attr("width", opts.width)
+				.attr("height", opts.height)
+
+			svg.select('.x-axis')
+				.attr("transform", "translate(0," + opts.height_g + ")")
+				.call(opts.xAxis);
+
+			svg.select('.y-axis')
+				.call(opts.yAxis)
+		}
 
 		// Constructs a new ordinal scale with a range of ten categorical colors
 		// https://github.com/mbostock/d3/wiki/Ordinal-Scales#category10
@@ -53,16 +68,16 @@ var LineChartView = TooltipView.extend({
 		// Keep track of every line we noted
 		// So we can draw it later
 		var line = d3.svg.line()
-		    // .interpolate("basis")
-		    .x(function(d) {
-		    	return opts.xScale( d['time'] );
-		    })
-		    .y(function(d) {
-		    	return opts.yScale( d['value'] );
-		    });
+		  // .interpolate("basis")
+		  .x(function(d) {
+		  	return opts.xScale( d['time'] );
+		  })
+		  .y(function(d) {
+		  	return opts.yScale( d['value'] );
+		  });
 
-    	// Format the data correctly so it will work with the line chart
-    	var dataset = color.domain().map(function(name) {
+    // Format the data correctly so it will work with the line chart
+    var dataset = color.domain().map(function(name) {
 			return {
 			  name: name,
 			  values: data.map(function(d) {
@@ -76,56 +91,93 @@ var LineChartView = TooltipView.extend({
 			    return array;
 			  })
 			};
+		//  Close dataset
 		});
 
 		// Create a group, which we will add lines and circles to
-		var path = svg.selectAll(".group")
-      		.data(dataset)
-    		.enter()
-    		.append("g")
-      		.attr("class", "group");
-      	
-      	path.append("path")
-			.attr("class", "line")
-			.attr("d", function(d) {
-				return line( d['values'] );
-			})
-			.style("stroke", function(d) {
-				return color( d['name'] );
-			});
+		// Create new path if we're not refreshing
+		if (state !== 'refresh') {
+			var path = svg.selectAll(".group")
+				.data(dataset)
+				.enter()
+				.append("g")
+				.attr("class", "group");
+	      	
+			path.append("path")
+				.attr("class", "line")
+				.attr("d", function(d) {
+					return line( d['values'] );
+				})
+				.style("stroke", function(d) {
+					return color( d['name'] );
+				});
 		
-		// The circles on the line
-		var circle = path.append('g')
-			.selectAll('.circle')
-			.data(function(d){
-				return d['values']
-			})
-			.enter()
-			.append('circle')
-			.attr('class','circle')
-			.attr("r", 5)
-			.attr("cx", function(d) {
-				return opts.xScale( d['time'] );
-			})
-			.attr("cy", function(d) {
-				return opts.yScale( d['value'] );
-			})
-			.style("stroke", function(d) {
-				var name = d3.select(this.parentNode).datum()['name'];
-				return color(name);
-			});
+			// The circles on the line
+			var circle = path.append('g')
+				.selectAll('.circle')
+				.data(function(d){
+					return d['values']
+				})
+				.enter()
+				.append('circle')
+				.attr('class','circle')
+				.attr("r", 5)
+				.attr("cx", function(d) {
+					return opts.xScale( d['time'] );
+				})
+				.attr("cy", function(d) {
+					return opts.yScale( d['value'] );
+				})
+				.style("stroke", function(d) {
+					var name = d3.select(this.parentNode).datum()['name'];
+					return color(name);
+				});
+		// If refresh
+		} else {
+			svg.selectAll('.group')
+				.data(dataset)
 
-		chart.tooltipEvents(circle, num);
+			svg.selectAll('.group').selectAll('.circle')
+				.data(function(d) {
+					return d['values']
+				})
+
+			svg.selectAll('.line')
+				.data(dataset)
+				.transition()
+				.duration(750)
+				.attr("d", function(d) {
+					return line( d['values'] );
+				})
+
+			svg.selectAll('.circle')
+				.transition()
+				.duration(750)
+				.attr("cx", function(d) {
+					return opts.xScale( d['time'] );
+				})
+				.attr("cy", function(d) {
+					return opts.yScale( d['value'] );
+				})
+		// If, else refresh
+		}
+
+		// chart.tooltipEvents(circle, num);
 
 		// Stop spinner
 		spinner.stop()
+
+		// This is calling an updated height.
+    if (pymChild) {
+			pymChild.sendHeight();
+    }
 	// Close create charts
 	},
 
 	// This sets our options differently
 	// Based on the iteration through the D3 load loop
 	// Then it adds charts to DOM
-	setIterationOptions: function(column, num) {
+	setIterationOptions: function(column, num, state) {
 		var chart = this;
 		var opts = chart.options;
 
@@ -140,12 +192,12 @@ var LineChartView = TooltipView.extend({
 		}
 
 		// Draw chart to the DOM
-		chart.createChart(column, num);
+		chart.createChart(column, num, state);
 	},
 
 	// Sets view options on render and window resize
 	// After that, it loads D3
-	setDefaultOptions: function() {
+	setDefaultOptions: function(state) {
 		var chart = this;
 		var opts = chart.options;
 
@@ -156,28 +208,28 @@ var LineChartView = TooltipView.extend({
 		opts.width_g = opts.width - opts.padding[1] - opts.padding[3];
 
 		opts.xScale = d3.time.scale()
-	    	.range([ 20, opts.width_g ]);
+			.range([ 20, opts.width_g ]);
 
-	    opts.yScale = d3.scale.linear()
-	    	.domain(opts.yscale_domain)
-	    	.range([ opts.height_g, 0 ]);
+		opts.yScale = d3.scale.linear()
+			.domain(opts.yscale_domain)
+			.range([ opts.height_g, 0 ]);
 
-	    opts.xAxis = d3.svg.axis()
-	    	.scale(opts.xScale)
-	    	.tickSize(-opts.height_g, 0)
-	    	.orient("bottom");
+		opts.xAxis = d3.svg.axis()
+	    .scale(opts.xScale)
+	    .tickSize(-opts.height_g, 0)
+	    .orient("bottom");
 
 		opts.yAxis = d3.svg.axis()
-	    	.scale(opts.yScale)
-	    	.ticks(5)
-	    	.tickSize(-opts.width_g, 0)
-	    	.tickFormat(function(d) {
-				return d;
+	    .scale(opts.yScale)
+	    .ticks(5)
+	    .tickSize(-opts.width_g, 0)
+	    .tickFormat(function(d) {
+				return commaNumbers(d);
 			})
-	    	.orient("left");
+		.orient("left");
 
 		// Load data after scales have been set
-		chart.loadD3();
+		chart.loadD3(state);
 	// Close set global vars
 	}
 // Close view
