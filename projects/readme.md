@@ -8,3 +8,5 @@ This is an ongoing list of links to the D3 charts we've created:
 * [Network chart: Something about Mary...Palmberg](http://thegazette.com/subject/news/something-about-marypalmberg-20150329)
 
 * [Bar charts: How healthy are Linn, Johnson counties?](http://thegazette.com/subject/news/health/health-snapshot-20150614)
+
+* [Line charts: Shall issue in Iowa](http://www.thegazette.com/subject/news/public-safety/five-years-after-passage-of-the-shall-issue-gun-law-views-remain-mixed-20160103)

@@ -8,7 +8,6 @@ var TooltipView = ChartView.extend({
 		// Need the SVG done before we call the tooltip function
 		shape.on("mouseover", function (d) {
 			// var name = d3.select(this.parentNode).datum()['name'];
-			console.log(d);
 
 			var tooltip_html = d['time'] + ': ' + d['value'];
 

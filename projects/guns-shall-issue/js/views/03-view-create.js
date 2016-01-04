@@ -161,7 +161,7 @@ var LineChartView = TooltipView.extend({
 						var num = parseInt( d[ opts['chartable_values'][0] ] );
 						var time = d[ opts['chartable_columns'][0] ];
 
-						return "translate(" + (opts.xScale(time) - 350) + ",47)";
+						return "translate(" + (opts.xScale(time) - 340) + ",47)";
 					})
 					.attr("x", "-110")
 					.attr("y", "-10")
@@ -348,7 +348,7 @@ var LineChartView = TooltipView.extend({
 						var num = parseInt( d[ opts['chartable_values'][0] ] );
 						var time = d[ opts['chartable_columns'][0] ];
 
-						return "translate(" + (opts.xScale(time) - 350) + ",47)";
+						return "translate(" + (opts.xScale(time) - 340) + ",47)";
 					})
 
 					svg.select('.tspan-number')

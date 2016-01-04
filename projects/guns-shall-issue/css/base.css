@@ -125,7 +125,7 @@ div.tooltip {
 	text-decoration: none;
 }
 
-@media(max-width:800px) {
+@media(max-width:750px) {
 	.annotation {
 		transform: translate(5px, 5px);
 		/* font-size: 11px; */

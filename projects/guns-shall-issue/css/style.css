@@ -1,5 +1,5 @@
 #content {
-	height: 385px !important;
+	height: 345px !important;
 }
 
 /* Line chart chart */
@@ -47,4 +47,10 @@ circle {
 text .note {
 	font-size: 11px;
     font-style: italic;
+}
+
+@media(max-width:550px) {
+	#content {
+		height: 290px !important;
+	}	
 }
