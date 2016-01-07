@@ -55,7 +55,6 @@ function createChart() {
   root.x0 = height / 2;
   root.y0 = 0;
 
-
   // The nodes
   // Compute the new tree layout.
   var nodes = tree.nodes(root).reverse(),
@@ -82,7 +81,6 @@ function createChart() {
     	// Set location of nodes
     	.attr("transform", function(d) {
     		if ( d['name'] === 'Mary Palmberg' && d['depth'] === 2) {
-    			console.log(d);
           return "translate(" + circle_mary_location + "," + circle_mary_translate + ")";
         } else {
 
