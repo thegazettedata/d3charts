@@ -9,6 +9,7 @@ var BarChartView = TooltipView.extend({
 		// Create empty SVG so we can append data to it later
 		if (state !== 'refresh') {
 			svg = d3.select(chart.el).append("svg")
+			svg.style("opacity", "0");
 		} else {
 			svg = d3.select("svg")
 		}
@@ -21,11 +22,6 @@ var BarChartView = TooltipView.extend({
 		opts.xScale.domain(data.map(function(d) {
 			return d[ opts['column_index'] ];
 		} ));
-
-		// Create domain of zero to max value in frequency column
-		opts.yScale.domain([0, d3.max(data, function(d) {
-			return d[column];
-		} )])
 
 		// Create horizontal grid
 		var grid = svg.selectAll("line.grid")
@@ -69,13 +65,20 @@ var BarChartView = TooltipView.extend({
 						return 'lightblue';
 					}
 				})
-		} else {
-			rects.transition()
-				.duration(750)
 		}
 
 		// Set attributes
-		rects.attr({
+		rects.transition()
+			.duration(750)
+			.each('end', function() {
+				if (state !== 'refresh') {
+					// Stop spinner
+					spinner.stop()
+
+					svg.style("opacity", "1");
+				}
+			})
+			.attr({
 			"x": function(d) {
 				return opts.xScale( d[ opts['column_index'] ] );
 			},
@@ -88,12 +91,18 @@ var BarChartView = TooltipView.extend({
 			}
 		})
 
-		// Append x axis
+		// Append x and y axises
 		if (state !== 'refresh') {
 			svg.append("g")
 				.attr({
 					"id": "axis-bar-" + num,
 					"class": "x-axis-bar axis-bar"
+				})
+
+			svg.append("g")
+				.attr({
+					"id": "y-axis-bar-" + num,
+					"class": "y-axis-bar axis-bar"
 				})
 		}
 
@@ -118,16 +127,6 @@ var BarChartView = TooltipView.extend({
 		 		"x2": opts.width
 		 	})
 
-
-		// Append y axis
-		if (state !== 'refresh') {
-			svg.append("g")
-				.attr({
-					"id": "y-axis-bar-" + num,
-					"class": "y-axis-bar axis-bar"
-				})
-		}
-
 		d3.select(".y-axis-bar")
 			.attr({
 				"transform": "translate(" + opts.padding[3] + ",0)"
@@ -136,9 +135,6 @@ var BarChartView = TooltipView.extend({
 
 		// Create tooltip
 		chart.tooltipEvents(rects, num);
-
-		// Stop spinner
-		spinner.stop()
 
 		// This is calling an updated height.
     if (pymChild) {
@@ -198,6 +194,7 @@ var BarChartView = TooltipView.extend({
 			// This is the input
 			// Set to max value we want to see on x-axis
 			// This is what is outputted
+			.domain( opts['yscale_domain'] )
 			.range([
 				opts.height - opts.padding[2], 0
 			]);

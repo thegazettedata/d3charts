@@ -9,8 +9,9 @@ var ChartModel = Backbone.Model.extend({
     'csv': 'data/diabetes-hospitalizations.csv',
     // Each column in the data we want to chart
     // This will be plotted as separate charts
-    'chartable_columns': ['Johnson'],
+    'chartable_columns': ['State'],
     'column_index': 'year',
+    'yscale_domain': [0, 180],
     'padding': [20, 0, 20, 55],
     'height': 0,
     'height-full': 260,

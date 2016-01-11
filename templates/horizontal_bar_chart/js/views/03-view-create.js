@@ -1,26 +1,28 @@
 var BarChartView = TooltipView.extend({
 	// This is called with our global CSV data
 	// It creates a chart and appends to DOM
-	createChart: function(column, num) {
+	createChart: function(column, num, state) {
 		var chart = this;
 		var opts = chart.options;
 		var data = chart.data;
 
-		// Text that will be shown
-		var column_pretty = 'Ages ' + column.replace('pop_', '').replace('_', ' - ');
-		if ( column_pretty.indexOf(17) > -1 ) {
-			column_pretty = 'Percent of population: Ages 17 and under';
-		} else if ( column_pretty.indexOf(65) > -1 ) {
-			column_pretty = 'Ages 65 and older';
+		// Create empty SVG so we can append data to it later
+		if (state !== 'refresh') {
+			// Text that will be shown
+			var column_pretty = 'State';
+
+			// Prettify the title
+			var title = d3.select(chart.el).append('h5')
+				.html(column_pretty)
+
+			svg = d3.select(chart.el).append("svg")
+
+			svg.style("opacity", "0");
+		} else {
+			svg = d3.select("svg")
 		}
 
-		// Prettify the title
-		var title = d3.select(chart.el).append('h5')
-			.html(column_pretty)
-
-		// Create empty SVG so we can append data to it later
-		chart.svg = d3.select(chart.el).append("svg")
-			.attr("width", opts.width)
+		svg.attr("width", opts.width)
 			.attr("height", opts.height)
 
 		// Map school name to school value
@@ -29,56 +31,80 @@ var BarChartView = TooltipView.extend({
 		} ));
 
 		// Create rectangles and append to DOM
-		var rects = chart.svg.selectAll("rect")
+		var rects = svg.selectAll("rect")
 			.data(data)
-			.enter()
-			.append("rect");
+
+		if (state !== 'refresh') {
+			rects.enter()
+				.append("rect");
+		}
 
 		// Set attributes
-		rects.attr({
-			"class": function(d, num) {
-				return 'rect-bar button ' + d[ opts['column_index'] ];
-			},
-			"x": opts.padding[3],
-			"y": function(d, num) {
-				return opts.yScale( d[ opts['column_index'] ] );
-			},
-			"width": function(d) {
-				return opts.xScale( d[column] );
-			},
-			"height": opts.yScale.rangeBand(),
-			"fill": function(d) {
-				if (d[ opts['column_index'] ] === 'Rural') {
-					return '#006d2c';
-				} else {
+		if (state !== 'refresh') {
+			bars = rects.attr({
+				"class": function(d, num) {
+					return 'rect-bar button ' + d[ opts['column_index'] ];
+				},
+				"fill": function(d) {
 					return '#bae4b3';
 				}
-			}
-		})
+			})
+		} else {
+			bars = d3.selectAll('.rect-bar')
+		}
+
+		bars.transition()
+			.duration(750)
+			.each('end', function() {
+				if (state !== 'refresh') {
+					// Stop spinner
+					spinner.stop()
+
+					svg.style("opacity", "1");
+				}
+			})
+			.attr({
+				"x": opts.padding[3],
+				"y": function(d, num) {
+					return opts.yScale( d[ opts['column_index'] ] );
+				},
+				"width": function(d) {
+					return opts.xScale( d[column] );
+				},
+				"height": opts.yScale.rangeBand()
+			})
 
 		// Append x axis
-		chart.svg.append("g")
-			.attr({
-				"id": "axis-bar-" + num,
-				"class": "x-axis-bar axis-bar",
-				"transform": "translate(" + opts.padding[3] + "," + opts.padding[0] + ")"
-			})
-			.call(opts.xAxis);
+		if (state !== 'refresh') {
+			x_axis = svg.append("g")
+				.attr({
+					"id": "axis-bar-" + num,
+					"class": "x-axis-bar axis-bar"
+				})
 
+			y_axis = svg.append("g")
+				.attr({
+					"id": "y-axis-bar-" + num,
+					"class": "y-axis-bar axis-bar"
+				})
+		} else {
+			x_axis = d3.select('x-axis-bar')
+			y_axis = d3.select('y-axis-bar')
+		}
 
-		// Append y axis
-		chart.svg.append("g")
-			.attr({
-				"id": "y-axis-bar-" + num,
-				"class": "y-axis-bar axis-bar",
-				"transform": "translate(" + opts.padding[3] + ",0)"
-			})
-			.call(opts.yAxis)
+		// Position or re-position the axises
+		x_axis.attr({
+			"transform": "translate(" + opts.padding[3] + "," + opts.padding[0] + ")"
+		})
+		.call(opts.xAxis)
+		
+		y_axis.attr({
+			"transform": "translate(" + opts.padding[3] + ",0)"
+		})
+		.call(opts.yAxis)
 
+		// Create tooltip
 		chart.tooltipEvents(rects, num);
-
-		// Stop spinner
-		spinner.stop()
 
 		// This is calling an updated height.
     if (pymChild) {
@@ -90,7 +116,7 @@ var BarChartView = TooltipView.extend({
 	// This sets our options differently
 	// Based on the iteration through the D3 load loop
 	// Then it adds charts to DOM
-	setIterationOptions: function(column, num) {
+	setIterationOptions: function(column, num, state) {
 		var chart = this;
 		var opts = chart.options;
 
@@ -115,12 +141,12 @@ var BarChartView = TooltipView.extend({
 		}
 
 		// Draw chart to the DOM
-		chart.createChart(column, num);
+		chart.createChart(column, num, state);
 	},
 
 	// Sets view options on render and window resize
 	// After that, it loads D3
-	setDefaultOptions: function() {
+	setDefaultOptions: function(state) {
 		var chart = this;
 		var opts = chart.options;
 
@@ -150,7 +176,7 @@ var BarChartView = TooltipView.extend({
 			.ticks(10)
 			// Add %
 			.tickFormat(function(d) {
-				return d + '%';
+				return d;
 			})
 			// This makes it so the ticks go down height of the chart
 			// Effectively making a grid
@@ -163,7 +189,7 @@ var BarChartView = TooltipView.extend({
 			.orient("left");
 
 		// Load data after scales have been set
-		chart.loadD3();
+		chart.loadD3(state);
 	// Close set global vars
 	}
 // Close view
