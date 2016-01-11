@@ -14,10 +14,6 @@ var BarChartView = TooltipView.extend({
 			column_pretty = 'Ages 65 and older';
 		}
 
-		// Prettify the title
-		var title = d3.select(chart.el).append('h5')
-			.html(column_pretty)
-
 		// Create empty SVG so we can append data to it later
 		chart.svg = d3.select(chart.el).append("svg")
 			.attr("width", opts.width)

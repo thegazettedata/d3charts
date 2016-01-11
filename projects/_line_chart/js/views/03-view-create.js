@@ -16,41 +16,38 @@ var LineChartView = TooltipView.extend({
 			return d[opts.chartable_columns];
 		}));
 
-		// The area under the line
-		// Create new SVG if we aren't refreshing the chart
+		// SVG
 		if (state !== 'refresh') {
 			var svg = d3.select(chart.el).append("svg")
-				.attr("width", opts.width)
-				.attr("height", opts.height)
-				.append("g")
-				.attr("transform", "translate(" + opts.padding[3] + "," + opts.padding[0] + ")");
-			
-			var focus = svg.append("g")
-				.style("display", "none");
-
-			// X-axis
-			svg.append("g")
-				.attr("class", "x-axis axis")
-				.attr("transform", "translate(0," + opts.height_g + ")")
-				.call(opts.xAxis);
-
-			// Y-axis
-			svg.append("g")
-				.attr("class", "y-axis axis")
-				.call(opts.yAxis)
-		// If refresh, we'll just reload the x and y axises with a duration
 		} else {
 			var svg = d3.select(chart.el).select('svg')
-				.attr("width", opts.width)
-				.attr("height", opts.height)
-
-			svg.select('.x-axis')
-				.attr("transform", "translate(0," + opts.height_g + ")")
-				.call(opts.xAxis);
-
-			svg.select('.y-axis')
-				.call(opts.yAxis)
 		}
+
+		// SVG
+		svg.attr("width", opts.width)
+			.attr("height", opts.height)
+
+		if (state !== 'refresh') {
+			svg = svg.append("g")
+				.attr("transform", "translate(" + opts.padding[3] + "," + opts.padding[0] + ")");
+
+			// Create x and y axises
+			x_axis = svg.append("g")
+				.attr("class", "x-axis axis")
+			y_axis = svg.append("g")
+				.attr("class", "y-axis axis")
+		} else {
+			// Select x and y axises
+			x_axis = svg.select('.x-axis')
+			y_axis = svg.select('.y-axis')
+		}
+
+		// Place or move x-axis
+		x_axis.attr("transform", "translate(0," + opts.height_g + ")")
+			.call(opts.xAxis);
+
+		// Place or move y-axis
+		y_axis.call(opts.yAxis)
 
 		// Constructs a new ordinal scale with a range of ten categorical colors
 		// https://github.com/mbostock/d3/wiki/Ordinal-Scales#category10
@@ -94,75 +91,115 @@ var LineChartView = TooltipView.extend({
 		//  Close dataset
 		});
 
+		// Define path and add data
+		var path = svg.selectAll(".group")
+			.data(dataset)
+
 		// Create a group, which we will add lines and circles to
 		// Create new path if we're not refreshing
 		if (state !== 'refresh') {
-			var path = svg.selectAll(".group")
-				.data(dataset)
-				.enter()
+			path.enter()
 				.append("g")
 				.attr("class", "group");
 	      	
 			path.append("path")
 				.attr("class", "line")
-				.attr("d", function(d) {
-					return line( d['values'] );
-				})
 				.style("stroke", function(d) {
 					return color( d['name'] );
-				});
-		
+				})
+
 			// The circles on the line
 			var circle = path.append('g')
-				.selectAll('.circle')
-				.data(function(d){
-					return d['values']
-				})
-				.enter()
+			.attr("class", "circles")
+
+			path = path.select('path')
+		// If refresh just select
+		} else {
+			var circle = svg.selectAll('.group')
+
+			path = svg.selectAll('.line')
+				.data(dataset)
+		}
+
+		// Add or re-add data to circles
+		circle = circle.selectAll('.circle')
+			.data(function(d){
+				return d['values']
+			})
+
+		// If not refresh
+		// Add data to circle
+		if (state !== 'refresh') {
+			circle.enter()
 				.append('circle')
 				.attr('class','circle')
 				.attr("r", 5)
-				.attr("cx", function(d) {
-					return opts.xScale( d['time'] );
-				})
-				.attr("cy", function(d) {
-					return opts.yScale( d['value'] );
-				})
 				.style("stroke", function(d) {
 					var name = d3.select(this.parentNode).datum()['name'];
 					return color(name);
-				});
-		// If refresh
+				})
+		}
+			
+		// Draw or re-draw lines
+		path.transition()
+			.duration(750)
+			.attr("d", function(d) {
+				return line( d['values'] );
+			})
+
+		// Position or re-position circles
+		circle.transition()
+			.duration(750)
+			.attr("cx", function(d) {
+				return opts.xScale( d['time'] );
+			})
+			.attr("cy", function(d) {
+				return opts.yScale( d['value'] );
+			})
+
+		// Add annotations
+		if (state !== 'refresh') {
+			var text = svg.select('.circles')
+				.append('text')
+				.attr('class', 'annotation')
+
+			// Annotation text goes here
+			text.append('tspan')
+				.attr("x","0")
+				.attr("y","0")
+				.html(function(d) {
+					return "Annotation text goes here"
+				})
+
+			text.append('tspan')
+				.attr("class","tspan-number")
+				.attr("x","0")
+				.attr("y","20")
+				.html(function(d) {
+					return "More text goes here"
+				})
+
 		} else {
-			svg.selectAll('.group')
-				.data(dataset)
-
-			svg.selectAll('.group').selectAll('.circle')
-				.data(function(d) {
-					return d['values']
-				})
-
-			svg.selectAll('.line')
-				.data(dataset)
-				.transition()
-				.duration(750)
-				.attr("d", function(d) {
-					return line( d['values'] );
-				})
-
-			svg.selectAll('.circle')
-				.transition()
-				.duration(750)
-				.attr("cx", function(d) {
-					return opts.xScale( d['time'] );
-				})
-				.attr("cy", function(d) {
-					return opts.yScale( d['value'] );
-				})
-		// If, else refresh
+			var text = svg.select('.annotation')
 		}
 
-		// chart.tooltipEvents(circle, num);
+		text.data(data.filter(function(d) {
+			var time = String( d[opts['chartable_columns'][0] ]);
+
+			if (time === 'Sat Jan 01 2011 00:00:00 GMT-0600 (CST)') {
+				return d
+			}
+		}))
+		.attr("transform", function(d) {
+			var num = parseInt( d[ opts['chartable_values'][0] ] );
+			var time = d[ opts['chartable_columns'][0] ];
+			return "translate(" + (opts.xScale(time) - 340) + ",47)";
+		})
+		.attr("x", "-110")
+		.attr("y", "-10")
+
+		// Create tooltip
+		chart.tooltipEvents(circle, num);
 
 		// Stop spinner
 		spinner.stop()

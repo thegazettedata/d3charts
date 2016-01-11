@@ -7,6 +7,9 @@ Array.prototype.clone = function() {
 var parseDate = d3.time.format("%d-%b-%y").parse;
 var parseYearMonth = d3.time.format("%Y-%m").parse;
 var parseYear = d3.time.format("%Y").parse;
+var commaNumbers = d3.format("0,000");
+
+var pymChild = null;
 
 // FUNCTIONS
 // Used to capitalize first letter of string

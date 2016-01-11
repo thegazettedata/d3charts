@@ -47,11 +47,16 @@ h4 {
   color: #777;
 }
 
+.tick text {
+	fill: #777;
+}
+
+
 /*Tooltip */
 div.tooltip {
-    font-size: 13px;
-    visibility:hidden;
-    background: rgba(255, 255, 255, 0.9);
+	font-size: 13px;
+	visibility:hidden;
+	background: rgba(255, 255, 255, 0.9);
 	border: 1px solid #ccc;
 	position: absolute;
 	padding: 5px 10px;

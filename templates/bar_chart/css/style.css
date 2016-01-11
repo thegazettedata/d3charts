@@ -14,7 +14,7 @@
 	shape-rendering: crispEdges;
 }
 
-.horizontal-grid {
+.grid {
 	stroke: #ccc;
 	stroke-dasharray: 1px 3px;
 	stroke-width: 1px;

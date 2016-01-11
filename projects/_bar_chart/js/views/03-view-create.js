@@ -1,15 +1,21 @@
 var BarChartView = TooltipView.extend({
 	// This is called with our global CSV data
 	// It creates a chart and appends to DOM
-	createChart: function(column, num) {
+	createChart: function(column, num, state) {
 		var chart = this;
 		var opts = chart.options;
 		var data = chart.data;
 
 		// Create empty SVG so we can append data to it later
-		chart.svg = d3.select(chart.el).append("svg")
-			.attr("width", opts.width)
+		if (state !== 'refresh') {
+			svg = d3.select(chart.el).append("svg")
+		} else {
+			svg = d3.select("svg")
+		}
+
+		svg.attr("width", opts.width)
 			.attr("height", opts.height)
+
 
 		// Map letter to individual bar
 		opts.xScale.domain(data.map(function(d) {
@@ -22,36 +28,54 @@ var BarChartView = TooltipView.extend({
 		} )])
 
 		// Create horizontal grid
-		chart.svg.selectAll("line.horizonta-grid").data( opts.yScale.ticks(10) )
-			.enter()
-			.append("line")
-			.attr({
-				"class":"horizontal-grid",
-				"x1" : opts.padding[3],
-				"x2" : opts.width,
-				"y1" : function(d){
-					return opts.yScale(d);
-				},
-				"y2" : function(d){
-					return opts.yScale(d);
-				},
-				"fill" : "none",
-				"shape-rendering" : "crispEdges",
-				"stroke" : "black",
-				"stroke-width" : "1px"
-			});
+		var grid = svg.selectAll("line.grid")
+			.data( opts.yScale.ticks(10) )
+
+		if (state !== 'refresh') {
+			grid.enter()
+				.append("line")
+				.attr({
+					"class":"grid",
+					"fill" : "none",
+					"shape-rendering" : "crispEdges",
+					"stroke" : "black",
+					"stroke-width" : "1px"
+				});
+		}
+
+		grid.attr({
+			"x1" : opts.padding[3],
+			"x2" : opts.width,
+			"y1" : function(d){
+				return opts.yScale(d);
+			},
+			"y2" : function(d){
+				return opts.yScale(d);
+			}
+		});
 
 			// Create rectangles and append to DOM
-		var rects = chart.svg.selectAll("rect")
+		var rects = svg.selectAll("rect")
 			.data(data)
-			.enter()
-			.append("rect");
+
+		if (state !== 'refresh') {
+			rects.enter()
+				.append("rect")
+				.attr({
+					"class": function(d, num) {
+						return 'rect-bar button'
+					},
+					"fill": function(d) {
+						return 'lightblue';
+					}
+				})
+		} else {
+			rects.transition()
+				.duration(750)
+		}
 
 		// Set attributes
 		rects.attr({
-			"class": function(d, num) {
-				return 'rect-bar button'
-			},
 			"x": function(d) {
 				return opts.xScale( d[ opts['column_index'] ] );
 			},
@@ -61,50 +85,72 @@ var BarChartView = TooltipView.extend({
 			"width": opts.xScale.rangeBand(),
 			"height": function(d, num) {
 				return opts.height - opts.padding[2] - opts.yScale( d[column] );
-			},
-			"fill": function(d) {
-				return 'lightblue';
 			}
 		})
 
 		// Append x axis
-		chart.svg.append("g")
+		if (state !== 'refresh') {
+			svg.append("g")
+				.attr({
+					"id": "axis-bar-" + num,
+					"class": "x-axis-bar axis-bar"
+				})
+		}
+
+		var x_axis = d3.select(".x-axis-bar")
 			.attr({
-				"id": "axis-bar-" + num,
-				"class": "x-axis-bar axis-bar",
-				"transform": "translate(" + 0 + "," + (opts.height - 20) + ")"
+				"transform": "translate(" + 10 + "," + (opts.height - 20) + ")"
 			})
 			.call(opts.xAxis)
-			.append("line")
+			
+
+		if (state != 'refresh') {
+			x_axis.append("line")
 				.attr({
 					"class": "x-axis-bottom-line",
-					"y2": 0,
-					"x1": opts.padding[3],
-					"x2": opts.width
+					"y2": 0
 				});
+		}
+
+		 d3.select(".x-axis-bottom-line")
+		 	.attr({
+		 		"x1": opts.padding[3],
+		 		"x2": opts.width
+		 	})
 
 
 		// Append y axis
-		chart.svg.append("g")
+		if (state !== 'refresh') {
+			svg.append("g")
+				.attr({
+					"id": "y-axis-bar-" + num,
+					"class": "y-axis-bar axis-bar"
+				})
+		}
+
+		d3.select(".y-axis-bar")
 			.attr({
-				"id": "y-axis-bar-" + num,
-				"class": "y-axis-bar axis-bar",
 				"transform": "translate(" + opts.padding[3] + ",0)"
 			})
 			.call(opts.yAxis);
 
-
+		// Create tooltip
 		chart.tooltipEvents(rects, num);
 
 		// Stop spinner
 		spinner.stop()
+
+		// This is calling an updated height.
+    if (pymChild) {
+        pymChild.sendHeight();
+    }
 	// Close create charts
 	},
 
 	// This sets our options differently
 	// Based on the iteration through the D3 load loop
 	// Then it adds charts to DOM
-	setIterationOptions: function(column, num) {
+	setIterationOptions: function(column, num, state) {
 		var chart = this;
 		var opts = chart.options;
 
@@ -129,12 +175,12 @@ var BarChartView = TooltipView.extend({
 		}
 
 		// Draw chart to the DOM
-		chart.createChart(column, num);
+		chart.createChart(column, num, state);
 	},
 
 	// Sets view options on render and window resize
 	// After that, it loads D3
-	setDefaultOptions: function() {
+	setDefaultOptions: function(state) {
 		var chart = this;
 		var opts = chart.options;
 
@@ -168,7 +214,7 @@ var BarChartView = TooltipView.extend({
 			.ticks(5)
 			// Add %
 			.tickFormat(function(d) {
-				return d * 100 + '%';
+				return d;
 			})
 			// This makes it so the ticks go down height of the chart
 			// Effectively making a grid
@@ -176,7 +222,7 @@ var BarChartView = TooltipView.extend({
 			.orient("left");
 
 		// Load data after scales have been set
-		chart.loadD3();
+		chart.loadD3(state);
 	// Close set global vars
 	}
 // Close view
