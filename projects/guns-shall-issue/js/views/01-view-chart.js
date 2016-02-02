@@ -3,7 +3,7 @@ var project_name = 'Gun ownership in Iowa';
 // Events for the body
 var ChartView = Backbone.View.extend({
 	// Global variables that will be set once the page loads
-	constructor: function(options) {
+    constructor: function(options) {
 		// Default options, which will be set on view extend
 		this.default_options = {
 			width: $(window).width(),
