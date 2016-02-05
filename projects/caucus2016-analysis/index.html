@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Iowa Caucus 2016 breakdown</title>
+
+  <!-- Mobile meta tags-->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="cleartype" content="on">
+
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script src="//d3js.org/topojson.v1.min.js"></script>
+  <script src="http://blog.apps.npr.org/pym.js/dist/pym.min.js"></script>
+  <style>
+
+    svg path:hover {
+      cursor: pointer;
+      stroke-opacity: 1 !important;
+      stroke-width: 2 !important;
+    }
+    
+    #key {
+      margin: 10px 0 25px 0;
+      overflow: hidden;
+    }
+
+    .candidate {
+      margin-right: 10px;
+      display: inline-block;
+      overflow: hidden;
+      float: left;
+    }
+
+    .candidate .color {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin-right: 3px;
+      float: left;
+    }
+
+    .candidate .candidate-name {
+      line-height: 20px;
+      float: left;
+    }
+
+    #rollover {
+      position: fixed;
+      right: 0px;
+      top: 5px;
+      width: 175px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid #EEE;
+      padding: 10px 5px;
+    }
+    
+    #rollover .precinct {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    #rollover .candidate {
+      margin: 2px 0;
+    }
+
+    #rollover .candidate-name {
+      font-weight: bold;
+    }
+
+    #rollover .candidate-percent {
+      margin-left: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+  <div id="key"></div>
+  <div id="rollover"></div>
+
+  <script>
+  var contains = function(needle) {
+    // Per spec, the way to identify NaN is that it is not equal to itself
+    var findNaN = needle !== needle;
+    var indexOf;
+
+    if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+      indexOf = Array.prototype.indexOf;
+    } else {
+      indexOf = function(needle) {
+        var i = -1, index = -1;
+
+        for(i = 0; i < this.length; i++) {
+          var item = this[i];
+
+          if((findNaN && item !== item) || item === needle) {
+            index = i;
+            break;
+          }
+        }
+
+        return index;
+      };
+    }
+    return indexOf.call(this, needle) > -1;
+  };
+
+  function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  }
+
+  // App stuff
+  var pymChild;
+
+  var colors = {
+    "CLINTON": "#82965D",
+    "SANDERS": "#98C1D8",
+    "O_MALLEY": "#64999A",
+    "O'MALLEY": "#64999A",
+    "CRUZ": "#C87829",
+    "TRUMP": "#98C1D8",
+    "RUBIO": "#535C3A",
+    "CARSON": "#A21E23",
+    "FIORINA": "#FFD149",
+    "SANTORUM": "#64999A"
+  }
+
+  var candidates = {
+    "dem": ["Clinton", "Sanders", "O'Malley"],
+    "gop": ["Cruz", "Trump", "Rubio", "Carson", "Fiorina", "Santorum"],
+  }
+
+   var candidates_upper = {
+    "dem": ["CLINTON", "SANDERS", "O_MALLEY"],
+    "gop": ["CRUZ", "TRUMP", "RUBIO", "CARSON", "FIORINA", "SANTORUM"],
+  }
+
+  var void_candidates = ['', ' ', null, "Uncommitted"]
+
+  var hash = window.location.hash.replace('#','');
+
+  // D3 stuff
+  var width = $(window).width();
+  var height = 0;
+  var projection = d3.geo.albersUsa()
+
+  var container;
+  var path = d3.geo.path().projection(projection);
+
+  var svg = d3.select("#map").append("svg")
+    .attr("width", "100%")
+    .attr("viewBox","0 0 900 600")
+
+  // Drag
+  function dragstarted(d) {
+    d3.event.sourceEvent.stopPropagation();
+    d3.select(this).classed("dragging", true);
+  }
+
+  function dragged(d) {
+    d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
+  }
+
+  function dragended(d) {
+    d3.select(this).classed("dragging", false);
+  }
+
+  var drag = d3.behavior.drag()
+    .origin(function(d) { return d; })
+    .on("dragstart", dragstarted)
+    .on("drag", dragged)
+    .on("dragend", dragended);
+
+
+  // Zoom
+  var zoom = d3.behavior.zoom()
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed);
+
+  function zoomed() {
+    container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+  }
+
+  // Create map using data
+  function render_map(p) {
+    var path = d3.geo.path().projection(null);
+
+    d3.json("results.json", function(error, ia) {
+      container = svg.append("g")
+        .attr("class", "counties")
+        .call(zoom)
+        .selectAll("path")
+          .data(topojson.feature(ia, ia.objects.results).features)
+          .enter().append("path")
+          .attr("d", path)
+          .style("fill", function(d) {
+            var winner = d['properties']['W_' + hash.toUpperCase() ];
+
+            if ( contains.call(void_candidates, winner) ) {
+              return '#CCC'
+            } else {
+              return colors[winner.toUpperCase() ];
+            }
+
+            var percent = d['properties'][ winner.toUpperCase() ];
+          })
+          .style("opacity", function(d) {
+            var winner = d['properties']['W_' + hash.toUpperCase() ];
+            var percent = d['properties'][ winner.toUpperCase() ];
+
+            if ( contains.call(void_candidates, winner) ) {
+              return 0
+            } else {
+              if (hash === 'dem') {
+                return percent / 100;
+              } else {
+                return percent / 60;
+              }
+            }
+          })
+          .attr("stroke-width", 1)
+          .attr("stroke", "#FFF")
+          .attr("stroke-opacity", 0.3)
+          .on("mouseover",   function(d) {
+            var winner = d['properties']['W_' + hash.toUpperCase() ];
+            var candidates_party = [];
+
+            $('#rollover').html('');
+
+            for (var candidate in d['properties']) {
+              if ( contains.call(candidates_upper[hash], candidate) ) {
+                candidates_party.push([candidate, d['properties'][candidate]])
+              }
+            }
+            candidates_party.sort(function(a, b) {
+              return a[1] - b[1]
+            })
+            candidates_party = candidates_party.reverse();
+            
+            var prev_percent = 0;
+            for (var num = 0; num < candidates_party.length; num++) {
+              var color = colors[ candidates_party[num][0] ];
+              var name_format = toTitleCase(candidates_party[num][0]).replace("_m","'M");
+              var percent = candidates_party[num][1];
+              prev_percent = percent
+
+              var html = '<div class="candidate">';
+              html += '<span class="color" style="background-color:' + color + ';"></span>';
+              html += '<span class="candidate-name">' + name_format + ':</span>';
+              html += '<span class="candidate-percent">' + candidates_party[num][1] + '%</span>';
+              html += '</div>';
+
+              $('#rollover').append(html);
+            }
+
+            $('#rollover').prepend('<div style="margin-bottom:3px">' + d['properties']['C'] + ' County</div>');
+            $('#rollover').prepend('<div class="precinct">' + d['properties']['P'] + '</div>');
+
+          })
+    });
+
+    pymChild = new pym.Child();
+
+  // Close render map
+  }
+
+  height = $("#map svg").height()
+
+  for (var num = 0; num < candidates[hash].length; num++) {
+    var candidate_current = candidates[hash][num];
+    var color = colors[ candidate_current.toUpperCase() ];
+
+    var html = '<div class="candidate">';
+    html += '<span class="color" style="background-color:' + color + ';"></span>';
+    html += '<span class="candidate-name">' + candidate_current + '</span>';
+    html += '</div>';
+
+    $('#key').append(html)
+
+  }
+
+  render_map('d');
+  </script>
+</body>
+</html>
