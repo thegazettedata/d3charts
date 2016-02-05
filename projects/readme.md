@@ -11,4 +11,4 @@ This is an ongoing list of links to the D3 charts we've created:
 
 * 1/3/16 - [Line charts: Shall issue in Iowa](http://www.thegazette.com/subject/news/public-safety/five-years-after-passage-of-the-shall-issue-gun-law-views-remain-mixed-20160103)
 
-* 2/2/16 - Maps: Precinct-by precinct results in [Republican caucus race](http://www.thegazette.com/subject/news/politics/election/republican-presidential/rubio-leaves-iowa-with-third-place-finish-marcomentum-20160202) and [Map: Precinct-by-precinct results in Democratic  caucus race](http://www.thegazette.com/subject/news/politics/election/republican-presidential/rubio-leaves-iowa-with-third-place-finish-marcomentum-20160202)
+* 2/2/16 - Maps: Precinct-by precinct caucus results in the [Republican race](http://www.thegazette.com/subject/news/politics/election/republican-presidential/rubio-leaves-iowa-with-third-place-finish-marcomentum-20160202) and [Democratic race](http://www.thegazette.com/subject/news/politics/election/republican-presidential/rubio-leaves-iowa-with-third-place-finish-marcomentum-20160202)
