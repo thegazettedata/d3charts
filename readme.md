@@ -38,13 +38,12 @@ Then to create a new project, run:
 
 The "folder" parameter is equal to the name of the new folder you want to create. All new projects get put into the "projects" folder.
 
-The "template" parameter represents the type of chart you want to create. We have a couple of options now:
+The "template" parameter represents the type of chart you want to create. We have a couple of options right now:
 
 * bar
 * horizontal_bar
 * line
 
-More will be added later.
 
 ##Delete project
 To delete a folder out of the projects folder, run:
