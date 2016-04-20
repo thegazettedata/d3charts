@@ -13,4 +13,4 @@ This is an ongoing list of links to the D3 charts we've created:
 
 * 2/2/16 - Maps: Precinct-by precinct caucus results in the [Republican race](http://www.thegazette.com/subject/news/politics/election/republican-presidential/rubio-leaves-iowa-with-third-place-finish-marcomentum-20160202) and [Democratic race](http://www.thegazette.com/subject/news/politics/election/democratic-presidential/slim-win-for-clinton-sign-of-lengthy-nomination-process-20160202)
 
-#4/1/16 - [Chart: How Iowa's new Medicaid system works](http://www.thegazette.com/data/medicaid-explained)
+* 4/1/16 - [Chart: How Iowa's new Medicaid system works](http://www.thegazette.com/data/medicaid-explained)
