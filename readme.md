@@ -1,4 +1,4 @@
- #Responsive D3.js charts
+#Responsive D3.js charts
 
 This is our working directory of responsive [D3.js](http://d3js.org/) charts.
 
