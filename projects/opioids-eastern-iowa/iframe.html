@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+        <link rel="shortcut icon" href="imgs/glogo.png" />
+        
+        <!-- Mobile meta tags-->
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta http-equiv="cleartype" content="on">
+        <link rel="apple-touch-icon" href="imgs/glogo.png"/>
+        
+        <script src="js/lib/pym.min.js"></script>
+
+        <title>iFrame test</title>
+    </head>
+
+    <body>
+        <div class="right">
+            <h3>Opioids kill dozens of Iowans every year</h3>
+            <div id="opioids-line-chart" class="full-width-mobile"> </div>
+            <script type="text/javascript">
+                var pymParent = new pym.Parent('opioids-line-chart','/projects/opioids-eastern-iowa/index.html', {});
+            </script>
+            <p class="embed-subhead"">Data was made available by the <a href="http://idph.iowa.gov/" target="_blank">Iowa Department of Public Health</a>.</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+/* Line chart chart */
+.axis path, .axis line {
+	fill: none;
+	stroke: #ccc;
+}
+
+.axis line {
+	shape-rendering: crispEdges;
+	display: block !important;
+  	stroke-dasharray: 1 1;
+  	stroke-opacity: 0.5;
+}
+
+.x-axis path, .y-axis path {
+  display: none;
+}
+
+.line {
+	fill: none;
+	stroke: #006d2c;
+	stroke-width: 2px;
+}
+
+.area {
+	fill: rgb(186, 228, 179);
+	opacity: 0.2;
+}
+
+circle {
+	cursor: pointer;
+	fill: #FFF;
+	/* 	stroke: #006d2c; */
+	stroke-width: 2px;
+}
+
+circle:hover {
+	stroke: #777;
+	stroke-width: 6px;
+}
+
+.rect-explainer {
+  border: 1px solid #ccc;
+  background: #FFF;
+}
+
+.x-axis-two .tick:nth-child(even) text {
+	display: none;
+}

@@ -34,14 +34,6 @@ h4 {
 	text-align: right;
 }
 
-.left {
-	float: left;
-}
-
-.right {
-	float: right;
-}
-
 /* Charts */
 .svg-container {
 	margin-bottom: 10px;
@@ -87,7 +79,7 @@ div.tooltip {
 	line-height: 16px;
 	border-collapse: separate;
 	border-spacing: 4px;
-	float: right;
+	clear: both;
 	margin: 5px;
 	padding: 0px 6px;
 	margin: 0 auto;
@@ -150,9 +142,9 @@ div.tooltip {
 
 
 @media(max-width:650px) {
-	div.tooltip {
+	/*div.tooltip {
 		width: 50%;
-	}
+	}*/
 
 	.toggle-view {
 		width: 90%;

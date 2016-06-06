@@ -46,14 +46,6 @@ function removeSpecialCharacters(string) {
     return string.replace(/[^\w\s]/gi, '').replace(/ /g,'');
 }
 
-
-// Double check to see that the content inside iframe is the same height as window
-$(window).ready(function() {
-    if ( window.self !== window.top ) {
-        $('#content').height( $(window.self).height() );
-    }
-});
-
 // Used to save console output
 // Used to pull data out of a Google spreadsheet
 // And into a JSON file
