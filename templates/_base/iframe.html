@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>iFrame test</title>
+<html lang="en">
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <link rel="shortcut icon" href="imgs/glogo.png" />
+        
     <!-- Mobile meta tags-->
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320"/>
@@ -11,32 +12,40 @@
     <meta name="apple-touch-fullscreen" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta http-equiv="cleartype" content="on">
-    
-    <script src="js/lib/jquery-1.11.1.min.js"></script>
-    <script src="js/lib/underscore-1.8.3.min.js"></script>
-    <script src="js/lib/jquery-lazyload-any-0.1.8.js"></script>
-    <script src="http://gadev.cdr.dc.publicus.com/JS/article-lazyload.js"></script>
+    <link rel="apple-touch-icon" href="imgs/glogo.png"/>
+        
+    <link rel="stylesheet" type="text/css" href="http://www.thegazette.com/CSS/styles-combined.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.thegazette.com/CSS/min/article.min.css">
+    <link rel="stylesheet" type="text/css" href="http://www.thegazette.com/CSS/min/article-embeds.min.css">
 
-    <!-- Base, custom styles -->
-    <link rel="stylesheet" href="http://gadev.cdr.dc.publicus.com/css/featureArticle.css" />
-    <link rel="stylesheet" href="http://gadev.cdr.dc.publicus.com/css/article-embeds.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <style>
-    body {
-        margin: 0px;
-    }
-    </style>
-</head>
-<body>
-    <div id="chart-homicides-container" class="chart-container left">
-        <h3>Chart headline goes here</h3>
-        <div class="lazyload"><!--
-        <div class="iframe-responsive-container chart" data-height="450px" data-400-height="550px" data-550-height="600px">
-        <iframe src="index.html" scrolling=no frameborder="0" width="100%"></iframe>
+    <script src="js/lib/pym.min.js"></script>
+    
+    <title>iFrame test</title>
+  </head>
+  <body id="article-container">
+    <div id="article-body">
+      <div id="articleBody-paragraphs">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper bibendum feugiat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus at lacinia erat. Etiam luctus suscipit erat at mattis. Ut condimentum metus leo, vel condimentum ante euismod ultrices.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper bibendum feugiat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus at lacinia erat. Etiam luctus suscipit erat at mattis. Ut condimentum metus leo, vel condimentum ante euismod ultrices.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur semper bibendum feugiat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus at lacinia erat. Etiam luctus suscipit erat at mattis. Ut condimentum metus leo, vel condimentum ante euismod ultrices.</p>
+
+        <div class="left">
+          <h4>Number of tax breaks to be granted by city</h4>
+          <div id="cr-ed-projects-chart" class="full-width-mobile"></div>
+          <script type="text/javascript">// <![CDATA[
+          var pymParent = new pym.Parent('cr-ed-projects-chart','http://files.gazlab.com/content-host/d3charts/projects/cr-ed-projects/index.html', {});
+                  // ]]></script>
+          <p class="embed-subhead">Shown are the total number of tax breaks that will be granted by the city to businesses and residents. The numbers are broken down by fiscal year.</p>
         </div>
-        --></div>
-        <p>Attribution goes here.</p>
+
+        <p>Donec eget feugiat mi. Sed porttitor neque in iaculis consequat. Nullam dapibus elit nunc, id porta felis rhoncus in. Maecenas vitae turpis erat.</p>
+        <p>Nullam pulvinar ligula eget tortor dictum tempus. Morbi egestas ullamcorper bibendum. Nullam et ex purus. Donec tincidunt elit a nulla cursus, vitae pulvinar nunc pharetra. Aenean facilisis auctor leo in aliquam. Mauris non enim elit. Aenean lectus massa, rhoncus at sodales non, aliquam vitae purus.</p>
+        <p>Donec eget feugiat mi. Sed porttitor neque in iaculis consequat. Nullam dapibus elit nunc, id porta felis rhoncus in. Maecenas vitae turpis erat.</p>
+        <p>Nullam pulvinar ligula eget tortor dictum tempus. Morbi egestas ullamcorper bibendum. Nullam et ex purus. Donec tincidunt elit a nulla cursus, vitae pulvinar nunc pharetra. Aenean facilisis auctor leo in aliquam. Mauris non enim elit. Aenean lectus massa, rhoncus at sodales non, aliquam vitae purus.</p>
+        <p>Donec eget feugiat mi. Sed porttitor neque in iaculis consequat. Nullam dapibus elit nunc, id porta felis rhoncus in. Maecenas vitae turpis erat.</p>
+        <p>Nullam pulvinar ligula eget tortor dictum tempus. Morbi egestas ullamcorper bibendum. Nullam et ex purus. Donec tincidunt elit a nulla cursus, vitae pulvinar nunc pharetra. Aenean facilisis auctor leo in aliquam. Mauris non enim elit. Aenean lectus massa, rhoncus at sodales non, aliquam vitae purus.</p>
+        <p>Nullam pulvinar ligula eget tortor dictum tempus. Morbi egestas ullamcorper bibendum. Nullam et ex purus. Donec tincidunt elit a nulla cursus, vitae pulvinar nunc pharetra. Aenean facilisis auctor leo in aliquam. Mauris non enim elit. Aenean lectus massa, rhoncus at sodales non, aliquam vitae purus.</p>
+      </div>
     </div>
-    <script src="http://gadev.cdr.dc.publicus.com/js/article-embeds.js"></script>
-</body>
+  </body>
 </html>

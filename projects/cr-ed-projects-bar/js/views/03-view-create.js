@@ -8,13 +8,6 @@ var BarChartView = TooltipView.extend({
 
 		// Create empty SVG so we can append data to it later
 		if (state !== 'refresh') {
-			// Text that will be shown
-			var column_pretty = 'State';
-
-			// Prettify the title
-			var title = d3.select(chart.el).append('h5')
-				.html(column_pretty)
-
 			svg = d3.select(chart.el).append("svg")
 		} else {
 			svg = d3.select("svg")
@@ -119,6 +112,8 @@ var BarChartView = TooltipView.extend({
     if (state !== 'refresh') {
 			// Stop spinner
 			spinner.stop();
+
+			$('#axis-bar-0 g text:odd').hide();
 		}
 	// Close create charts
 	},

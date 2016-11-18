@@ -44,8 +44,11 @@ h4 {
 
 /* Charts */
 .svg-container {
-	margin-bottom: 10px;
 	width: 100%;
+}
+
+svg {
+	padding-bottom: 25px;
 }
 
 .chart-container p {

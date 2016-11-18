@@ -16,8 +16,7 @@ var BarChartView = TooltipView.extend({
 				.html(column_pretty)
 
 			svg = d3.select(chart.el).append("svg")
-
-			svg.style("opacity", "0");
+			
 		} else {
 			svg = d3.select("svg")
 		}
@@ -53,26 +52,33 @@ var BarChartView = TooltipView.extend({
 			bars = d3.selectAll('.rect-bar')
 		}
 
-		bars.transition()
-			.duration(750)
-			.each('end', function() {
+		bars.attr({
+			"x": opts.padding[3],
+			"y": function(d, num) {
+				return opts.yScale( d[ opts['column_index'] ] );
+			},
+			"width": function(d) {
 				if (state !== 'refresh') {
-					// Stop spinner
-					spinner.stop()
-
-					svg.style("opacity", "1");
-				}
-			})
-			.attr({
-				"x": opts.padding[3],
-				"y": function(d, num) {
-					return opts.yScale( d[ opts['column_index'] ] );
-				},
-				"width": function(d) {
+					return 0
+				} else {
 					return opts.xScale( d[column] );
-				},
-				"height": opts.yScale.rangeBand()
-			})
+				}
+			},
+			"height": opts.yScale.rangeBand()
+		})
+
+		if (state !== 'refresh') {
+			bars.transition()
+				.duration(750)
+				.delay(function (d, i) {
+					return i * 50;
+				})
+				.attr({
+					"width": function(d) {
+						return opts.xScale( d[column] );
+					},
+				})
+		}
 
 		// Append x axis
 		if (state !== 'refresh') {
@@ -110,6 +116,12 @@ var BarChartView = TooltipView.extend({
     if (pymChild) {
         pymChild.sendHeight();
     }
+
+    if (state !== 'refresh') {
+			// Stop spinner
+			spinner.stop();
+		}
+
 	// Close create charts
 	},
 
