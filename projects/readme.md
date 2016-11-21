@@ -16,3 +16,5 @@ This is an ongoing list of links to the D3 charts we've created:
 * 4/1/16 - [Chart: How Iowa's new Medicaid system works](http://www.thegazette.com/data/medicaid-explained)
 
 * 6/6/16 - [Line chart: Opioids kill dozens of Iowans every year](http://www.thegazette.com/subject/news/heroins-hold-how-iowans-struggle-x2014-and-sometimes-succeed-x2014-in-overcoming-opioid-addiction-20160605)
+
+* 11/20/16 - [Bar chart: Cedar Rapids increasingly turns to tax breaks for growth](http://www.thegazette.com/subject/news/government/cedar-rapids-increasingly-turns-to-tax-breaks-for-growth-20161120)
