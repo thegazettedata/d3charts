@@ -1,0 +1,122 @@
+.x-axis-bar g text {
+	display: none;
+}
+
+#axis-bar-0 g text {
+	display: block;
+}
+
+.y-axis-bar path, .y-axis-bar line {
+	opacity: 0;
+}
+
+.rect-bar {
+	stroke-width: 2px;
+}
+
+.rect-bar:hover {
+	fill: #555;
+}
+
+/* Line chart */
+.axis path, .axis line {
+	fill: none;
+	stroke: #ccc;
+}
+
+.axis line {
+	shape-rendering: crispEdges;
+	display: block !important;
+  	stroke-dasharray: 1 1;
+  	stroke-opacity: 0.5;
+}
+
+.x-axis path, .y-axis path {
+  display: none;
+}
+
+.line {
+	fill: none;
+	stroke: #006d2c;
+	stroke-width: 4px;
+}
+
+.area {
+	fill: rgb(186, 228, 179);
+	opacity: 0.2;
+}
+
+circle {
+	cursor: pointer;
+	fill: #FFF;
+	stroke-width: 2px;
+}
+
+circle:hover {
+	fill: #555 !important;
+	stroke: #555;
+	stroke-width: 6px;
+}
+
+.rect-explainer {
+  border: 1px solid #ccc;
+  background: #FFF;
+}
+
+.x-axis-two .tick:nth-child(even) text {
+	display: none;
+}
+
+#total-enrollment-table {
+	margin: 0 auto;
+}
+
+.icon .fa {
+	font-size: 24px;
+	line-height: 45px;
+	margin-right: 10px;
+}
+
+.number {
+	font-weight: bold;
+	color: #a65628;
+	font-size: 38px;
+	line-height: 50px;
+}
+
+.green {
+	color: #4daf4a;
+}
+
+.red {
+	color: #e41a1c;
+}
+
+.description {
+	margin-top: 10px;
+	float: left;
+	width: 100%;
+}
+
+.fa-num-table {
+	margin: 0 auto;
+}
+
+.fa-num-table .fa {
+	margin: 0 2px;
+}
+
+.fa-num-table .number {
+	text-align: center;
+	padding: 0 15px;
+}
+
+.fa-num-table .blank-td {
+	width: 25px;
+}
+
+.fa-num-table .fa-num-container,
+.table-note {
+	text-align: center;
+	max-width: 175px;
+}

@@ -16,8 +16,6 @@ var LineChartView = TooltipView.extend({
 			return d[opts.chartable_columns];
 		}));
 
-		console.log( d3.extent(data, function(d) { return d[opts.chartable_columns] }))
-
 		// SVG
 		if (state !== 'refresh') {
 			var svg = d3.select(chart.el).append("svg")
@@ -31,6 +29,7 @@ var LineChartView = TooltipView.extend({
 
 		if (state !== 'refresh') {
 			svg = svg.append("g")
+				.attr("class","main-g")
 				.attr("transform", "translate(" + opts.padding[3] + "," + opts.padding[0] + ")");
 
 			// Create x and y axises
@@ -67,7 +66,7 @@ var LineChartView = TooltipView.extend({
 		// Keep track of every line we noted
 		// So we can draw it later
 		var line = d3.svg.line()
-		  // .interpolate("basis")
+		  .interpolate("step-before")
 		  .x(function(d) {
 		  	return opts.xScale( d['time'] );
 		  })
@@ -94,6 +93,9 @@ var LineChartView = TooltipView.extend({
 		});
 
 		// Define path and add data
+		svg = svg.append('g')
+			.attr("class", "group-container");
+
 		var path = svg.selectAll(".group")
 			.data(dataset)
 
@@ -102,12 +104,54 @@ var LineChartView = TooltipView.extend({
 		if (state !== 'refresh') {
 			path.enter()
 				.append("g")
-				.attr("class", "group");
+				.attr("id", function(d) {
+					return "group-" + d['name']
+				})
+				.attr('class','group')
+				.attr("opacity", function(d) {
+					if (d['name'] == 'Iowa') {
+						return 1;
+					} else {
+						return 0;
+					}
+				})
 	      	
 			path.append("path")
 				.attr("class", "line")
 				.style("stroke", function(d) {
 					return color( d['name'] );
+				})
+				.style("stroke-width", function(d) {
+					if (d['name'] == 'Iowa') {
+						return '8px';
+					} else {
+						return '2px';
+					}
+				})
+
+			path.append('text')
+				.attr("x","30")
+				.attr('y', function(d) {
+					return opts.yScale(d['values'][4]['value']) - 5;
+				})
+				.attr('class', 'word-count-annotation')
+				.append('tspan')
+				.html(function(d) {
+					if (d['name'] == 'i') {
+						d['name'] = 'I'
+					}
+
+					if (d['name'] == 'Iowa') {
+						var btn = '<btn class="selected">'
+					} else {
+						var btn = '<btn>'
+					}
+					btn += d['name'].replace('iowa','Iowa');
+					btn += '</btn>'
+
+					$('#btn-container').append(btn);
+
+					return d['name'];
 				})
 
 			// The circles on the line
@@ -135,7 +179,7 @@ var LineChartView = TooltipView.extend({
 			circle.enter()
 				.append('circle')
 				.attr('class','circle')
-				.attr("r", 5)
+				.attr("r", 8)
 				.style("stroke", function(d) {
 					var name = d3.select(this.parentNode).datum()['name'];
 					return color(name);
@@ -159,46 +203,80 @@ var LineChartView = TooltipView.extend({
 				return opts.yScale( d['value'] );
 			})
 
-		// Add annotations
-		if (state !== 'refresh') {
-			var text = svg.select('.circles')
-				.append('text')
-				.attr('class', 'annotation')
+		// // Add annotations
+		// if (state !== 'refresh') {
+		// 	var annotations = d3.select('#group-Iowa')
+		// 		.append('text')
+		// 		.attr('class', 'annotations')
 
-			// Annotation text goes here
-			text.append('tspan')
-				.attr("x","0")
-				.attr("y","0")
-				.html(function(d) {
-					return "Annotation text goes here"
-				})
+		// 	// Annotation text goes here
+		// 	annotations.append('tspan')
+		// 		.attr("x","30")
+		// 		.attr("y","100")
+		// 		.html(function(d) {
+		// 			return "Branstad's most used words is 'Iowa/Iowans', which"
+		// 		})
 
-			text.append('tspan')
-				.attr("class","tspan-number")
-				.attr("x","0")
-				.attr("y","20")
-				.html(function(d) {
-					return "More text goes here"
-				})
+		// 	annotations.append('tspan')
+		// 		.attr("x","30")
+		// 		.attr("y","115")
+		// 		.html(function(d) {
+		// 			return "has been used frequently in the last five years"
+		// 		})
 
-		} else {
-			var text = svg.select('.annotation')
-		}
+		// 	annotations.append('tspan')
+		// 		.attr("x","30")
+		// 		.attr("y","130")
+		// 		.html(function(d) {
+		// 			return "but saw a dip this year."
+		// 		})
 
-		text.data(data.filter(function(d) {
-			var time = String( d[opts['chartable_columns'][0] ]);
+		// 	var annotations_three = d3.select('#group-we')
+		// 		.append('text')
+		// 		.attr('class', 'annotations')
 
-			if (time === 'Sat Jan 01 2011 00:00:00 GMT-0600 (CST)') {
-				return d
-			}
-		}))
-		.attr("transform", function(d) {
-			var num = parseInt( d[ opts['chartable_values'][0] ] );
-			var time = d[ opts['chartable_columns'][0] ];
-			return "translate(" + (opts.xScale(time) - 340) + ",47)";
-		})
-		.attr("x", "-110")
-		.attr("y", "-10")
+		// 	annotations_three.append('tspan')
+		// 		.attr("x", function(d) {
+		// 			return $(window).width() / 2
+		// 		})
+		// 		.attr("y","215")
+		// 		.html(function(d) {
+		// 			return "Text goes here. Text goes here."
+		// 		})
+
+		// 	annotations_three.append('tspan')
+		// 		.attr("x", function(d) {
+		// 			return $(window).width() / 2
+		// 		})
+		// 		.attr("y","230")
+		// 		.html(function(d) {
+		// 			return "Text goes here. Text goes here."
+		// 		})
+
+		// 	var annotations_two = d3.select('#group-I')
+		// 		.append('text')
+		// 		.attr('class', 'annotations')
+
+		// 	annotations_two.append('tspan')
+		// 		.attr("x", function(d) {
+		// 			return $(window).width() / 2 - 25
+		// 		})
+		// 		.attr("y","200")
+		// 		.html(function(d) {
+		// 			return "In what will likely be his last state of the state speech,"
+		// 		})
+
+		// 	annotations_two.append('tspan')
+		// 		.attr("x", function(d) {
+		// 			return $(window).width() / 2 - 25
+		// 		})
+		// 		.attr("y","215")
+		// 		.html(function(d) {
+		// 			return "Branstad chose to use the word 'I' more than usual."
+		// 		})
+		// } else {
+		// 	var annotations = svg.select('.annotation')
+		// }
 
 		// Create tooltip
 		chart.tooltipEvents(circle, num);
@@ -254,13 +332,14 @@ var LineChartView = TooltipView.extend({
 			.range([ opts.height_g, 0 ]);
 
 		opts.xAxis = d3.svg.axis()
+	    .ticks(5)
 	    .scale(opts.xScale)
 	    .tickSize(-opts.height_g, 0)
 	    .orient("bottom");
 
 		opts.yAxis = d3.svg.axis()
 	    .scale(opts.yScale)
-	    .ticks(5)
+	    .ticks(10)
 	    .tickSize(-opts.width_g, 0)
 	    .tickFormat(function(d) {
 				return commaNumbers(d);

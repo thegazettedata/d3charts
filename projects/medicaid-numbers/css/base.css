@@ -1,0 +1,207 @@
+/* General */
+html, body {
+	padding: 0px !important;
+	margin: 0px;
+}
+
+a, .button {
+	transition: all 0.2s ease-out;
+	cursor: pointer;
+}
+
+h2, h3, h4, h5 {
+	color: #555;
+}
+
+h2 {
+	font-size: 28px;
+	line-height: 34px;
+	margin-top: 35px;
+	margin-bottom: 5px;
+	text-align: center;
+	float: left;
+	width: 100%;
+}
+
+h2:nth-of-type(1) {
+	margin-top: 0px;
+}
+
+h4, h5 {
+	float: left;
+	text-align: center;
+	background-color: #EEE;
+	border: 1px solid #FFF;
+	margin: 5px 0;
+}
+
+h4 {
+	margin: 5px 0 2px 0;
+}
+
+h5 {
+	padding: 2px 0;
+	width: 100%;
+	background-color: #EEE;
+	border: 1px solid #FFF;
+	color: #555;
+}
+
+p {
+	font-size: 16px;
+	line-height: 24px;
+	color: #555;
+	margin-bottom: 15px;
+	font-family: 'Helvetica Neue', Helvetica, arial, sans-serif;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+/* Charts */
+#charts-containers {
+	overflow: hidden;
+}
+
+.svg-container {
+	float: left;
+	width: 50%;
+}
+
+#svg-8-container {
+	width: 100%;
+}
+
+svg {
+	padding-bottom: 15px;
+}
+
+.chart-container p {
+  text-align: right;
+  margin: 0 5px 0 0;
+  font-size: 11px;
+  line-height: 14px;
+  color: #777;
+}
+
+.tick text {
+	font-size: 12px;
+	fill: #777;
+}
+
+
+/*Tooltip */
+div.tooltip {
+	font-size: 13px;
+	visibility:hidden;
+	background: rgba(255, 255, 255, 0.9);
+	border: 1px solid #ccc;
+	position: absolute;
+	padding: 5px 10px;
+	opacity: 1 !important;
+	box-shadow: 0px 1px 3px #ccc;
+}
+
+#toggle-key {
+	width: 100%;
+}
+
+#toggle-key .toggle-key-td {
+	width: 50%;
+}
+
+/* Key */
+.key {
+	font-size: 12px;
+	line-height: 20px;
+	border-collapse: separate;
+	border-spacing: 6px;
+	padding-top: 10px;
+	margin: 0 auto;
+}
+
+.key td {
+	cursor: pointer;
+}
+
+.key-color {
+	float: left;
+	width: 18px;
+	height: 18px;
+	border: 1px solid #FFF;
+	border-radius: 50%;
+}
+
+.color-one {
+	background-color: rgb(152, 78, 163);
+}
+
+.color-two {
+	background-color: rgb(55, 126, 184);
+}
+
+.color-three {
+	background-color: rgb(255, 127, 0);
+}
+
+.color-red {
+	float: left;
+	background-color: #e41a1c;
+	border-radius: 0%;
+	height: 4px;
+	margin: 7px 1px;
+	width: 4px;
+}
+
+.key .text {
+	margin-left: 3px;
+}
+
+@media(max-width:650px) {
+	.svg-container {
+		width: 100%;
+	}
+
+	h2 {
+		font-size: 24px;
+		line-height: 30px;
+	}
+
+	h5 {
+		padding: 4px 0;
+	}
+
+	table .number {
+		font-size: 26px;
+		line-height: 32px;
+	}
+
+	.key {
+		padding-top: 0px;
+	}
+
+	.key tr, .key td {
+		display: block;
+	}
+
+	.color-one, .color-two, .color-three {
+		margin: 0 6px;
+	}
+}
