@@ -165,7 +165,9 @@ var AppView = Backbone.View.extend({
       // Tables with data
       if (sheet_num == 1) {
         var enrollment_num = commaSeparateNumber(val['elements'][0]['enrollment']);
-
+        var last_updated = val['elements'][0]['lastupdated'];
+        
+        $('#last-updated').text('Last updated: ' + last_updated);
         $(enrollment_table).find('.number').text(enrollment_num);
       } else if ( name.indexOf('description') > -1 ) {
         var key = '<table class="key" cellspacing="2">'
