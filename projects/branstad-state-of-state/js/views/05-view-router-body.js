@@ -5,7 +5,7 @@ var AppView = Backbone.View.extend({
   el: 'body',
 
   events: {
-    'click btn': 'toggleWords',
+    'click .dropdown-menu li': 'toggleWords',
   },
 
   // Hide, show different charts
@@ -13,7 +13,11 @@ var AppView = Backbone.View.extend({
     // Prevent anchor tag behavior
     e.preventDefault()
     var btn = $(e.target);
-    var btn_text = btn.text();
+    var btn_text = btn.attr('href').replace('#','');
+    var word_count = btn.attr('data-word-count');
+    var annotation_div = $('#annotation-' + btn_text);
+    var annotation_header = $('#annotation-' + btn_text + ' h2');
+    var path_color = d3.select('#group-' + btn_text).select('.line').style('stroke');
 
     // Buttons
     $(btn).addClass('selected');
@@ -37,7 +41,10 @@ var AppView = Backbone.View.extend({
         'stroke-width': '8px'
       })
 
-
+    $(annotation_div).siblings().hide();
+    $(annotation_div).fadeIn();
+    $(annotation_div).find('.word-count').text(word_count);
+    $(annotation_header).css('color', path_color);
 
     // Google Analytics
     ga('send', 'event', project_name, 'Toggle words');

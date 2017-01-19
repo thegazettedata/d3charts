@@ -1,6 +1,57 @@
-#content {
-	height: 385px !important;
+#dropdown-container {
+	float: left;
+	width: 100%;
 }
+
+#dropdown-container #select-wording {
+	border: 0px solid #FFF;
+	background-color: #FFF;
+	padding: 4px 8px;
+}
+
+#dropdown-container .dropdown-toggle {
+	display: block;
+	padding: 12px 16px;
+	border: 1px solid #CCC;
+	background-image: linear-gradient(to bottom,#EEE,#EEE);
+}
+
+#dropdown-container .dropdown-toggle .caret {
+	margin-left: 6px;
+}
+
+.dropdown-menu {
+	min-width: 185px;
+}
+
+#annotations-container {
+	display: inline-block;
+	margin-left: 15px;
+}
+
+#annotations-container div:nth-child(n+2) {
+	display: none;
+}
+
+#annotations-container h2 {
+	float: left;
+	font-size: 20px;
+	line-height: 26px;
+	text-transform: uppercase;
+	margin: 0 0 5px 0;
+	color: rgb(31, 119, 180);
+}
+
+#annotations-container p {
+	float: left;
+}
+
+#annotations-container .header-container span {
+	float: left;
+	margin: 0 7px;
+	line-height: 30px;
+}
+
 
 /* Line chart chart */
 .axis path, .axis line {
@@ -21,7 +72,6 @@
 
 .line {
 	fill: none;
-	stroke: #006d2c;
 	stroke-width: 2px;
 }
 
@@ -73,4 +123,21 @@ btn:hover, btn.selected {
 
 .word-count-annotation {
 	display: none;
+}
+
+@media(max-width:550px) {
+	table td {
+		display: block;
+		width: 100%;
+	}
+
+	#dropdown-container button {
+		margin: 5px auto 10px auto;
+		width: 98%;
+	}
+
+	.dropdown-menu {
+		margin-top: 0px;
+		width: 98%;
+	}
 }

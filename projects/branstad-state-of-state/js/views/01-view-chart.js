@@ -73,16 +73,11 @@ var ChartView = Backbone.View.extend({
 				// Reset options
 				opts.width = $(window).width();
 				
-				// Used if you want to have chart be a different height
-		   	// At a different screen size
-		   	// if ( $(window).width() > 650) {
-				//      opts.height = opts['height-full'];
-				//  	} else {
-				//      opts.height = opts['height-650'];
-				//  	}
-
-				opts.height = opts.height_init;
-				opts.padding = opts.padding_init;
+				if ( $(window).width() < 550 ) {
+      		opts.height = 350
+      	} else {
+      		opts.height = 400
+      	}
 
 				// Set default options and resize
 				chartview.render('refresh');

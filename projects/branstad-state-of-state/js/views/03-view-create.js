@@ -65,6 +65,15 @@ var LineChartView = TooltipView.extend({
 
 		// Keep track of every line we noted
 		// So we can draw it later
+		var line_pre_transition = d3.svg.line()
+		  .interpolate("step-before")
+			.x(function(d) {
+		  	return 35;
+		  })
+		  .y(function(d) {
+		  	return opts.yScale( d['value'] );
+		  });
+
 		var line = d3.svg.line()
 		  .interpolate("step-before")
 		  .x(function(d) {
@@ -92,10 +101,6 @@ var LineChartView = TooltipView.extend({
 		//  Close dataset
 		});
 
-		// Define path and add data
-		svg = svg.append('g')
-			.attr("class", "group-container");
-
 		var path = svg.selectAll(".group")
 			.data(dataset)
 
@@ -105,7 +110,7 @@ var LineChartView = TooltipView.extend({
 			path.enter()
 				.append("g")
 				.attr("id", function(d) {
-					return "group-" + d['name']
+					return "group-" + d['name'].toLowerCase();
 				})
 				.attr('class','group')
 				.attr("opacity", function(d) {
@@ -130,39 +135,39 @@ var LineChartView = TooltipView.extend({
 				})
 
 			path.append('text')
-				.attr("x","30")
-				.attr('y', function(d) {
-					return opts.yScale(d['values'][4]['value']) - 5;
-				})
-				.attr('class', 'word-count-annotation')
-				.append('tspan')
 				.html(function(d) {
-					if (d['name'] == 'i') {
+					// Add word count to DOM
+					// And the word to the dropdown
+					var word_count = 0;
+					var lower_case = d['name'].toLowerCase();
+
+					_.each(d['values'], function(val, num) {
+						word_count += val['value'];
+					});
+
+					if (lower_case == 'iowa') {
+						$('#annotation-iowa .word-count').text(word_count);
+					} else if (lower_case == 'i') {
 						d['name'] = 'I'
 					}
 
-					if (d['name'] == 'Iowa') {
-						var btn = '<btn class="selected">'
-					} else {
-						var btn = '<btn>'
-					}
-					btn += d['name'].replace('iowa','Iowa');
-					btn += '</btn>'
+					var btn = '<li><a href="#' + lower_case + '"';
+					btn += 'data-word-count="' + word_count + '"';
+					btn += '>';
+					btn += capitaliseFirstLetter(d['name']) + '</a>';
+					btn += '</li>';
 
-					$('#btn-container').append(btn);
-
-					return d['name'];
+					$('.dropdown-menu').append(btn);
 				})
 
 			// The circles on the line
 			var circle = path.append('g')
-			.attr("class", "circles")
+				.attr("class", "circles")
 
 			path = path.select('path')
 		// If refresh just select
 		} else {
 			var circle = svg.selectAll('.group')
-
 			path = svg.selectAll('.line')
 				.data(dataset)
 		}
@@ -187,96 +192,58 @@ var LineChartView = TooltipView.extend({
 		}
 			
 		// Draw or re-draw lines
-		path.transition()
+		if (state !== 'refresh') {
+			path.attr("d", function(d) {
+				return line_pre_transition( d['values'] );
+			})
+			.transition()
 			.duration(750)
+			.delay(function (d, i) {
+				return i * 50;
+			})
 			.attr("d", function(d) {
 				return line( d['values'] );
 			})
+		} else {
+			path.transition()
+				.duration(750)
+				.attr("d", function(d) {
+				return line( d['values'] );
+			})
+		}
 
 		// Position or re-position circles
-		circle.transition()
+		if (state !== 'refresh') {
+			circle.attr("cx", function(d) {
+				return 35;
+			})
+			.attr("cy", function(d) {
+				return opts.yScale( d['value'] );
+			})
+			.transition()
 			.duration(750)
+			.delay(function (d, i) {
+				return i;
+			})
 			.attr("cx", function(d) {
 				return opts.xScale( d['time'] );
 			})
 			.attr("cy", function(d) {
 				return opts.yScale( d['value'] );
 			})
-
-		// // Add annotations
-		// if (state !== 'refresh') {
-		// 	var annotations = d3.select('#group-Iowa')
-		// 		.append('text')
-		// 		.attr('class', 'annotations')
-
-		// 	// Annotation text goes here
-		// 	annotations.append('tspan')
-		// 		.attr("x","30")
-		// 		.attr("y","100")
-		// 		.html(function(d) {
-		// 			return "Branstad's most used words is 'Iowa/Iowans', which"
-		// 		})
-
-		// 	annotations.append('tspan')
-		// 		.attr("x","30")
-		// 		.attr("y","115")
-		// 		.html(function(d) {
-		// 			return "has been used frequently in the last five years"
-		// 		})
-
-		// 	annotations.append('tspan')
-		// 		.attr("x","30")
-		// 		.attr("y","130")
-		// 		.html(function(d) {
-		// 			return "but saw a dip this year."
-		// 		})
-
-		// 	var annotations_three = d3.select('#group-we')
-		// 		.append('text')
-		// 		.attr('class', 'annotations')
-
-		// 	annotations_three.append('tspan')
-		// 		.attr("x", function(d) {
-		// 			return $(window).width() / 2
-		// 		})
-		// 		.attr("y","215")
-		// 		.html(function(d) {
-		// 			return "Text goes here. Text goes here."
-		// 		})
-
-		// 	annotations_three.append('tspan')
-		// 		.attr("x", function(d) {
-		// 			return $(window).width() / 2
-		// 		})
-		// 		.attr("y","230")
-		// 		.html(function(d) {
-		// 			return "Text goes here. Text goes here."
-		// 		})
-
-		// 	var annotations_two = d3.select('#group-I')
-		// 		.append('text')
-		// 		.attr('class', 'annotations')
-
-		// 	annotations_two.append('tspan')
-		// 		.attr("x", function(d) {
-		// 			return $(window).width() / 2 - 25
-		// 		})
-		// 		.attr("y","200")
-		// 		.html(function(d) {
-		// 			return "In what will likely be his last state of the state speech,"
-		// 		})
-
-		// 	annotations_two.append('tspan')
-		// 		.attr("x", function(d) {
-		// 			return $(window).width() / 2 - 25
-		// 		})
-		// 		.attr("y","215")
-		// 		.html(function(d) {
-		// 			return "Branstad chose to use the word 'I' more than usual."
-		// 		})
-		// } else {
-		// 	var annotations = svg.select('.annotation')
-		// }
+		} else {
+			circle.transition()
+				.duration(750)
+				.delay(function (d, i) {
+					return i;
+				})
+				.attr("cx", function(d) {
+					return opts.xScale( d['time'] );
+				})
+			.attr("cy", function(d) {
+				return opts.yScale( d['value'] );
+			})
+		}
 
 		// Create tooltip
 		chart.tooltipEvents(circle, num);
@@ -285,9 +252,7 @@ var LineChartView = TooltipView.extend({
 		spinner.stop()
 
 		// This is calling an updated height.
-    if (pymChild) {
-			pymChild.sendHeight();
-    }
+    pymChild.sendHeight();
 	// Close create charts
 	},
 
@@ -317,7 +282,7 @@ var LineChartView = TooltipView.extend({
 	setDefaultOptions: function(state) {
 		var chart = this;
 		var opts = chart.options;
-
+		
 		// This sets height of the g element
 		// Where the chart is actually place
 		// This makes room for x-axis labels

@@ -125,34 +125,6 @@ div.tooltip {
 	background-color: rgb(140, 86, 75);
 }
 
-/* Toggle buttons */
-.toggle-view {
-	overflow: hidden;
-	width: 45%;
-	margin: 0 auto;
-}
-
-.toggle-view .toggle-view-option {
-	float: left;
-	width: 46%;
-	margin-right: 1%;
-	padding: 1%;
-	text-align: center;
-	background-color: #eaf4fb;
-	color: #555;
-	font-weight: bold;
-	border-bottom: 3px solid #777;
-	cursor: pointer;
-}
-
-.toggle-view .selected, .toggle-view .toggle-view-option:hover {
-	background-color: #1f78b4;
-	border-bottom: 3px solid #444;
-	color: #FFF;
-	text-decoration: none;
-}
-
-
 @media(max-width:650px) {
 	div.tooltip {
 		width: 50%;
